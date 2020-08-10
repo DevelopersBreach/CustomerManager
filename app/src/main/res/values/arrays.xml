@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dropdown_content" translatable="false">
+        <item>Dress</item>
+        <item>Blouse</item>
+        <item>Alteration</item>
+    </string-array>
+
+</resources>

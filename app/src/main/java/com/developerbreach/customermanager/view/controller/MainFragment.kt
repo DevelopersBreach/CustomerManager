@@ -1,10 +1,8 @@
 package com.developerbreach.customermanager.view.controller
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.databinding.FragmentMainBinding
@@ -21,7 +19,7 @@ class MainFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentMainBinding.inflate(inflater)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 

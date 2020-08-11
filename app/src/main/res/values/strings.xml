@@ -19,4 +19,8 @@
     <string name="date_text">10/08/20</string>
     <string name="dashboard">Dashboard</string>
     <string name="action_clean_fields">Clear</string>
+    <string name="item_type_dress">Dress</string>
+    <string name="item_type_blouse">Blouse</string>
+    <string name="item_type_alteration">Alteration</string>
+    <string name="validate_fields_button">Validate</string>
 </resources>

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorOnPrimary">#000000</color>
+    <color name="colorOnSecondary">#ffffff</color>
 
-    <color name="colorSecondary">#9e9e9e</color>
-    <color name="colorOnSecondary">#000000</color>
+    <color name="primaryColor">#ffcdd2</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryDarkColor">#cb9ca1</color>
+    <color name="secondaryColor">#212121</color>
+    <color name="secondaryLightColor">#484848</color>
+    <color name="secondaryDarkColor">#000000</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#ffffff</color>
 
-    <color name="colorSurface">#ffffff</color>
-    <color name="coloOnSurface">#000000</color>
-
-    <color name="colorBackground">#ffffff</color>
-    <color name="colorOnBackground">#000000</color>
-
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorPrimaryVariant">#959595</color>
-    <color name="colorSecondaryVariant">#cfcfcf</color>
+    <color name="iconColor">#D75C3C3F</color>
+    <color name="textInputOutlineColor">#FBB8AC</color>
 </resources>

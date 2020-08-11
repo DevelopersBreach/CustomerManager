@@ -6,9 +6,9 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 class Customers {
 
-    private var baseId: Int = 0
-    var billNumber: Int = 0
-    var totalItems = 0
+    lateinit var baseId: String
+    lateinit var billNumber: String
+    lateinit var totalItems: String
     lateinit var itemType: String
     lateinit var name: String
     lateinit var email: String
@@ -19,9 +19,9 @@ class Customers {
     constructor() {}
 
     constructor(
-        baseId: Int,
-        billNumber: Int,
-        totalItems: Int,
+        baseId: String,
+        billNumber: String,
+        totalItems: String,
         itemType: String,
         name: String,
         email: String,

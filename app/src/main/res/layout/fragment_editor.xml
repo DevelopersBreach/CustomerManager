@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.developerbreach.customermanager.viewModel.EditorViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,48 +23,29 @@
             android:layout_marginEnd="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/base_id_input"
+                android:id="@+id/bill_number_input"
                 style="@style/Widget.CustomerManager.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/hint_base_id_text"
-                app:layout_constraintBottom_toTopOf="@id/number_of_items_input"
-                app:layout_constraintEnd_toStartOf="@id/customer_bill_number_input"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/hint_customer_bill_text"
+                app:helperTextEnabled="true"
+                app:helperText="@string/helper_text_customer_bill"
+                app:layout_constraintBottom_toTopOf="@id/item_type_input"
+                app:layout_constraintEnd_toStartOf="@id/number_of_items_input"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/ic_base_id">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/base_id_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="number" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_bill_number_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/hint_customer_bill_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/base_id_input"
-                app:layout_constraintTop_toTopOf="@id/base_id_input"
                 app:startIconDrawable="@drawable/ic_bill_number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_bill_number_edit_text"
+                    android:id="@+id/bill_number_edit_text"
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="4" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,13 +54,12 @@
                 style="@style/Widget.CustomerManager.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
                 android:hint="@string/hint_number_of_items_text"
-                app:layout_constraintBottom_toTopOf="@id/customer_name_input"
-                app:layout_constraintEnd_toStartOf="@id/item_type_input"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/base_id_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/bill_number_input"
+                app:layout_constraintTop_toBottomOf="@id/bill_number_input"
+                app:layout_constraintTop_toTopOf="@id/bill_number_input"
                 app:startIconDrawable="@drawable/ic_total_items">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -80,24 +67,25 @@
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/item_type_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:paddingBottom="8dp"
                 app:boxStrokeColor="@color/textInputOutlineColor"
                 app:hintTextAppearance="@style/TextAppearance.CustomerManager.TextInputLayout.HintText"
                 app:hintTextColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/number_of_items_input"
-                app:layout_constraintTop_toTopOf="@id/number_of_items_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/customer_name_input"
+                app:layout_constraintTop_toBottomOf="@id/bill_number_input"
                 app:startIconDrawable="@drawable/ic_item_type"
                 app:startIconTint="@color/iconColor">
 
@@ -121,11 +109,12 @@
                 app:layout_constraintBottom_toTopOf="@id/customer_mail_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customer_bill_number_input"
+                app:layout_constraintTop_toBottomOf="@id/item_type_input"
                 app:startIconDrawable="@drawable/ic_customer_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/customer_name_edit_text"
+                    android:inputType="textCapSentences"
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -146,7 +135,7 @@
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_mail_edit_text"
+                    android:id="@+id/mail_edit_text"
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -171,7 +160,7 @@
                 app:startIconDrawable="@drawable/ic_contact">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_contact_edit_text"
+                    android:id="@+id/contact_edit_text"
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -241,15 +230,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:visibility="visible"
                 android:backgroundTint="@color/iconColor"
                 android:text="@string/validate_fields_button"
+                android:visibility="visible"
+                app:bindBillNumberEditText="@{billNumberEditText}"
+                app:bindContactEditText="@{contactEditText}"
+                app:bindMailEditText="@{mailEditText}"
+                app:bindSubmitButton="@{submitButton}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/submit_details"
+                android:id="@+id/submit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"

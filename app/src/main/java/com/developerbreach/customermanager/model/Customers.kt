@@ -6,7 +6,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 class Customers {
 
-    lateinit var baseId: String
     lateinit var billNumber: String
     lateinit var totalItems: String
     lateinit var itemType: String
@@ -19,7 +18,6 @@ class Customers {
     constructor() {}
 
     constructor(
-        baseId: String,
         billNumber: String,
         totalItems: String,
         itemType: String,
@@ -29,7 +27,6 @@ class Customers {
         status: Boolean,
         date: String
     ) {
-        this.baseId = baseId
         this.billNumber = billNumber
         this.totalItems = totalItems
         this.itemType = itemType

@@ -7,13 +7,17 @@ import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.databinding.FragmentEditorBinding
 import com.developerbreach.customermanager.model.Customers
+import com.developerbreach.customermanager.utils.AppTextWatcher
+import com.developerbreach.customermanager.utils.COLLECTION_PATH
+import com.developerbreach.customermanager.utils.isNetworkConnected
 import com.developerbreach.customermanager.viewModel.EditorViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
 
 
 /**
@@ -21,16 +25,27 @@ import java.util.*
  */
 class EditorFragment : Fragment() {
 
-    private lateinit var binding: FragmentEditorBinding
     private val viewModel: EditorViewModel by viewModels()
+    private lateinit var binding: FragmentEditorBinding
     private lateinit var firestore: FirebaseFirestore
-    private var isStitchCompleted = false
-    private var status = 2
+
+    private lateinit var billNumber: String
+    private lateinit var numOfItems: String
+    private lateinit var customerName: String
+    private lateinit var dropDownSelection: String
+    private lateinit var currentDate: String
+    private lateinit var mail: String
+    private lateinit var contact: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Access a Cloud Firestore instance from your Activity
         firestore = FirebaseFirestore.getInstance()
+
+        if (!isNetworkConnected(requireContext())) {
+            showNoNetworkDialog()
+        }
     }
 
     override fun onCreateView(
@@ -39,6 +54,9 @@ class EditorFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEditorBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+        binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -46,107 +64,51 @@ class EditorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setStatusListener()
+        setStitchStatusAndListener()
         setCurrentDate()
         setItemDropDownType()
-        setValidateAndSubmit()
 
-        binding.baseIdEditText.addTextChangedListener(watchBaseId())
-        binding.customerBillNumberEditText.addTextChangedListener(watchBillNumber())
+        binding.billNumberEditText.addTextChangedListener(watchBillNumber())
         binding.numberOfItemsEditText.addTextChangedListener(watchNumOfItems())
         binding.customerNameEditText.addTextChangedListener(watchCustomerName())
-        binding.customerMailEditText.addTextChangedListener(watchMail())
-        binding.customerContactEditText.addTextChangedListener(watchContact())
+        binding.mailEditText.addTextChangedListener(watchMail())
+        binding.contactEditText.addTextChangedListener(watchContact())
+        performNullOrEmptyCheck()
+
+        binding.submitButton.setOnClickListener(firestoreSubmitListener())
     }
 
-    private lateinit var baseId: String
-    private lateinit var billNumber: String
-    private lateinit var numOfItems: String
-    private lateinit var customerName: String
-    private lateinit var mail: String
-    private lateinit var contact: String
-
-    private fun watchBaseId(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                baseId = viewModel.validateBaseId(text.toString(), binding.baseIdInput)
-            }
+    private fun performNullOrEmptyCheck() {
+        if (binding.billNumberEditText.text.isNullOrEmpty() ||
+            binding.numberOfItemsEditText.text.isNullOrEmpty() ||
+            binding.customerNameEditText.text.isNullOrEmpty() ||
+            binding.mailEditText.text.isNullOrEmpty() ||
+            binding.contactEditText.text.isNullOrEmpty()
+        ) {
+            binding.validateFields.visibility = View.INVISIBLE
+        } else {
+            binding.validateFields.visibility = View.VISIBLE
         }
     }
 
-    private fun watchBillNumber(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                billNumber =
-                    viewModel.validateBillNumber(text.toString(), binding.customerBillNumberInput)
-            }
-        }
-    }
+    private fun setStitchStatusAndListener() {
 
-    private fun watchNumOfItems(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                numOfItems =
-                    viewModel.validateNumOfItems(text.toString(), binding.numberOfItemsInput)
-            }
-        }
-    }
-
-    private fun watchCustomerName(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                customerName =
-                    viewModel.validateCustomerName(text.toString(), binding.customerNameInput)
-            }
-        }
-    }
-
-    private fun watchMail(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mail = viewModel.isValidEmail(text as Editable?, binding.customerMailInput)
-            }
-        }
-    }
-
-    private fun watchContact(): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                contact = viewModel.isValidContact(text as Editable?, binding.customerContactInput)
-            }
-        }
-    }
-
-    private fun setStatusListener() {
         binding.completedStatus.setOnClickListener {
             binding.completedStatus.setBackgroundResource(R.drawable.status_completed_filled)
             binding.pendingStatus.setBackgroundResource(R.drawable.status_pending_plane)
-            status = 1
+            viewModel.stitchStatus(true)
         }
 
         binding.pendingStatus.setOnClickListener {
             binding.completedStatus.setBackgroundResource(R.drawable.status_completed_plane)
             binding.pendingStatus.setBackgroundResource(R.drawable.status_pending_filled)
-            status = 2
+            viewModel.stitchStatus(false)
         }
     }
 
     private fun setCurrentDate() {
-        val currentDate = Calendar.getInstance().time.toString()
-        val date = currentDate.removeRange(11, 30).drop(4)
-        binding.dateDisplayTextView.text = date
+        binding.dateDisplayTextView.text = viewModel.validateDate()
+        currentDate = viewModel.validateDate()
     }
 
     private fun setItemDropDownType() {
@@ -162,49 +124,67 @@ class EditorFragment : Fragment() {
             when (itemId) {
                 0 -> getString(R.string.item_type_dress)
                 1 -> getString(R.string.item_type_blouse)
-                2 -> getString(R.string.item_type_alteration)
+                2 -> getString(R.string.item_type_ghagra)
+                3 -> getString(R.string.item_type_lehenga)
+                4 -> getString(R.string.item_type_long_frock)
             }
+        }
+
+        dropDownSelection = binding.itemTypeDropDown.text.toString()
+    }
+
+    private fun firestoreSubmitListener(): (View) -> Unit = {
+        val customers = Customers(
+            billNumber,
+            numOfItems,
+            dropDownSelection,
+            customerName,
+            mail,
+            contact,
+            viewModel.isStitchCompleted,
+            currentDate
+        )
+
+        if (isNetworkConnected(requireContext())) {
+            val collection = firestore.collection(COLLECTION_PATH)
+            collection.document(billNumber).set(customers)
+                .addOnSuccessListener { firestoreSuccessListener(customerName, billNumber) }
+                .addOnFailureListener { firestoreFailureListener() }
+        } else {
+            showNoNetworkDialog()
         }
     }
 
-    private fun setValidateAndSubmit() {
-
-        val dropDownSelection = binding.itemTypeDropDown.text.toString()
-
-        val selectedDate = binding.dateDisplayTextView.text.toString()
-
-        when (status) {
-            1 -> isStitchCompleted = true
-            2 -> isStitchCompleted = false
-        }
-
-        binding.validateFields.setOnClickListener {
-
-            val customers = Customers(
-                baseId,
-                billNumber,
-                numOfItems,
-                dropDownSelection,
-                customerName,
-                mail,
-                contact,
-                isStitchCompleted,
-                selectedDate
-            )
-
-            //addToFirestore(customers)
-        }
+    private fun showNoNetworkDialog() {
+        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_CustomerManager_MaterialDialog)
+            .setTitle(getString(R.string.dialog_error_title_text))
+            .setMessage(getString(R.string.dialog_error_message_text))
+            .setPositiveButton(getString(R.string.dialog_positive_button_text)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
-    private fun addToFirestore(customers: Customers) {
-        val collection = firestore.collection("customers")
-        collection.add(customers)
-            .addOnSuccessListener {
-                Snackbar.make(requireView(), "Added Customer", Snackbar.LENGTH_SHORT).show()
+    private fun firestoreSuccessListener(
+        customerName: String,
+        billNumber: String
+    ) {
+        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_CustomerManager_MaterialDialog)
+            .setTitle("$customerName - $billNumber")
+            .setMessage(getString(R.string.dialog_positive_message_text))
+            .setPositiveButton(getString(R.string.dialog_positive_button_text)) { dialog, _ ->
+                dialog.dismiss()
+                findNavController().navigateUp()
             }
-            .addOnFailureListener {
-                Snackbar.make(requireView(), "UnSuccessful", Snackbar.LENGTH_SHORT).show()
-            }
+            .show()
+    }
+
+    private fun firestoreFailureListener() {
+        Snackbar.make(
+            requireView(),
+            getString(R.string.customer_firestore_unsuccessful),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -216,15 +196,52 @@ class EditorFragment : Fragment() {
 
         when (item.itemId) {
             R.id.action_clear -> {
-                binding.baseIdEditText.setText("")
-                binding.customerBillNumberEditText.setText("")
+                binding.billNumberEditText.setText("")
                 binding.numberOfItemsEditText.setText("")
                 binding.customerNameEditText.setText("")
-                binding.customerMailEditText.setText("")
-                binding.customerContactEditText.setText("")
+                binding.mailEditText.setText("")
+                binding.contactEditText.setText("")
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun watchBillNumber(): TextWatcher = object : AppTextWatcher() {
+        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            billNumber =
+                viewModel.validateCustomerDetails(text.toString(), binding.billNumberInput)
+            performNullOrEmptyCheck()
+        }
+    }
+
+    private fun watchNumOfItems(): TextWatcher = object : AppTextWatcher() {
+        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            numOfItems =
+                viewModel.validateCustomerDetails(text.toString(), binding.numberOfItemsInput)
+            performNullOrEmptyCheck()
+        }
+    }
+
+    private fun watchCustomerName(): TextWatcher = object : AppTextWatcher() {
+        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            customerName =
+                viewModel.validateCustomerDetails(text.toString(), binding.customerNameInput)
+            performNullOrEmptyCheck()
+        }
+    }
+
+    private fun watchMail(): TextWatcher = object : AppTextWatcher() {
+        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            mail = viewModel.isValidEmail(text as Editable?, binding.customerMailInput)
+            performNullOrEmptyCheck()
+        }
+    }
+
+    private fun watchContact(): TextWatcher = object : AppTextWatcher() {
+        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            contact = viewModel.isValidContact(text as Editable?, binding.customerContactInput)
+            performNullOrEmptyCheck()
+        }
     }
 }

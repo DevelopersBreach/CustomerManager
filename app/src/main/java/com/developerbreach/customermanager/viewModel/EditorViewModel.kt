@@ -4,93 +4,46 @@ import android.app.Application
 import android.text.Editable
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.developerbreach.customermanager.R
 import com.google.android.material.textfield.TextInputLayout
 import com.google.common.base.Strings.isNullOrEmpty
+import java.util.*
 
 
 class EditorViewModel(application: Application) : AndroidViewModel(application) {
 
-    //private val context = application.applicationContext
+    private val context = application.applicationContext
 
-    private val _showSubmitButton = MutableLiveData<Boolean>()
-    val showSubmitButton: LiveData<Boolean>
-        get() = _showSubmitButton
+    private var _isStitchCompleted = false
+    var isStitchCompleted: Boolean
+        get() = _isStitchCompleted
+        set(value) {
+            _isStitchCompleted = value
+        }
 
-
-    init {
-        _showSubmitButton.value = false
+    fun stitchStatus(status: Boolean): Boolean {
+        _isStitchCompleted = status
+        return status
     }
 
+    fun validateDate(): String {
+        val currentDate = Calendar.getInstance().time.toString()
+        return currentDate.removeRange(11, 30).drop(4)
+    }
 
-    fun validateBaseId(
+    fun validateCustomerDetails(
         text: String?,
         textInputLayout: TextInputLayout
     ): String {
         if (text?.isEmpty()!!) {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error = "Field required"
-            _showSubmitButton.value = false
+            textInputLayout.error = context.getString(R.string.field_required_error_text)
         } else if (text.isNotEmpty()) {
             textInputLayout.isErrorEnabled = false
-            _showSubmitButton.value = true
         }
 
         return text.toString()
     }
-
-
-    fun validateBillNumber(
-        text: String?,
-        textInputLayout: TextInputLayout
-    ): String {
-        if (text?.isEmpty()!!) {
-            textInputLayout.isErrorEnabled = true
-            textInputLayout.error = "Field required"
-            _showSubmitButton.value = false
-        } else if (text.isNotEmpty()) {
-            textInputLayout.isErrorEnabled = false
-            _showSubmitButton.value = true
-        }
-
-        return text.toString()
-    }
-
-
-    fun validateNumOfItems(
-        text: String?,
-        textInputLayout: TextInputLayout
-    ): String {
-        if (text?.isEmpty()!!) {
-            textInputLayout.isErrorEnabled = true
-            textInputLayout.error = "Field required"
-            _showSubmitButton.value = false
-        } else if (text.isNotEmpty()) {
-            textInputLayout.isErrorEnabled = false
-            _showSubmitButton.value = true
-        }
-
-        return text.toString()
-    }
-
-
-    fun validateCustomerName(
-        text: String?,
-        textInputLayout: TextInputLayout
-    ): String {
-        if (text?.isEmpty()!!) {
-            textInputLayout.isErrorEnabled = true
-            textInputLayout.error = "Field required"
-            _showSubmitButton.value = false
-        } else if (text.isNotEmpty()) {
-            textInputLayout.isErrorEnabled = false
-            _showSubmitButton.value = true
-        }
-
-        return text.toString()
-    }
-
 
     fun isValidEmail(
         customerMail: Editable?,
@@ -101,16 +54,13 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
         if (correctMail) {
             textInputLayout.isErrorEnabled = false
-            _showSubmitButton.value = false
         } else {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error = "Invalid"
-            _showSubmitButton.value = true
+            textInputLayout.error = context.getString(R.string.invalid_mail_error_text)
         }
 
         return customerMail.toString()
     }
-
 
     fun isValidContact(
         customerContact: Editable?,
@@ -119,18 +69,15 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
         when {
             customerContact?.isEmpty()!! -> {
                 textInputLayout.isErrorEnabled = true
-                textInputLayout.error = "Field required"
-                _showSubmitButton.value = false
+                textInputLayout.error = context.getString(R.string.field_required_error_text)
             }
             customerContact.length != 10 -> {
                 textInputLayout.isErrorEnabled = true
                 textInputLayout.error = "Invalid"
-                _showSubmitButton.value = false
             }
             !customerContact.isNullOrEmpty() || customerContact.length == 10 -> {
                 textInputLayout.isErrorEnabled = false
                 textInputLayout.error = null
-                _showSubmitButton.value = true
             }
         }
 

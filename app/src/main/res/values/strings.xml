@@ -3,24 +3,45 @@
 
     <string name="main_fragment_label">Customer Manager</string>
     <string name="editor_fragment_label">Add New Customer</string>
+    <string name="dashboard">Dashboard</string>
 
-    <string name="hint_base_id_text">Base Id</string>
     <string name="hint_customer_bill_text">Bill Number</string>
+    <string name="helper_text_customer_bill">EX: 0001</string>
     <string name="hint_customer_name_text">Customer Name</string>
     <string name="hint_customer_contact_text">Contact</string>
     <string name="hint_customer_mail_text">Mail Address</string>
     <string name="hint_number_of_items_text">Total</string>
     <string name="hint_item_type_text">Type</string>
 
+    <!--  Buttons  -->
     <string name="submit_text_button">Submit</string>
+    <string name="validate_fields_button">Validate</string>
 
     <string name="status_completed">Completed</string>
     <string name="status_pending">Pending</string>
+
     <string name="date_text">10/08/20</string>
-    <string name="dashboard">Dashboard</string>
+
+    <!--  Menu item  -->
     <string name="action_clean_fields">Clear</string>
+
+    <!--  Customer Item Type DropDownMenu  -->
     <string name="item_type_dress">Dress</string>
     <string name="item_type_blouse">Blouse</string>
-    <string name="item_type_alteration">Alteration</string>
-    <string name="validate_fields_button">Validate</string>
+    <string name="item_type_ghagra">CropTop Ghagra</string>
+    <string name="item_type_lehenga">Lehenga Blouse</string>
+    <string name="item_type_long_frock">LongFrock</string>
+
+    <!--  TextInputLayout Text  -->
+    <string name="field_required_error_text">Field required</string>
+    <string name="invalid_mail_error_text">Invalid</string>
+
+    <!--  Firestore Response Message  -->
+    <string name="customer_firestore_unsuccessful">UnSuccessful</string>
+    <string name="dialog_positive_button_text">OK</string>
+    <string name="dialog_positive_message_text">Customer added successfully</string>
+    <string name="dialog_error_title_text">Error</string>
+    <string name="dialog_error_message_text">Internet connection not available</string>
+    <string name="field_validation_error_message">Incorrect</string>
+
 </resources>

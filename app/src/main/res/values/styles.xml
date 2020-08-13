@@ -32,4 +32,12 @@
         <item name="android:textColor">@color/iconColor</item>
     </style>
 
+    <style name="Widget.CustomerManager.MaterialDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/iconColor</item>
+    </style>
+
 </resources>

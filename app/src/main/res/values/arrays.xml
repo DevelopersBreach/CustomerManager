@@ -2,9 +2,11 @@
 <resources>
 
     <string-array name="dropdown_content" translatable="false">
-        <item>Dress</item>
-        <item>Blouse</item>
-        <item>Alteration</item>
+        <item>@string/item_type_dress</item>
+        <item>@string/item_type_blouse</item>
+        <item>@string/item_type_ghagra</item>
+        <item>@string/item_type_lehenga</item>
+        <item>@string/item_type_long_frock</item>
     </string-array>
 
 </resources>

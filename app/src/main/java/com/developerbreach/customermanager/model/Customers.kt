@@ -1,31 +1,31 @@
 package com.developerbreach.customermanager.model
 
-import com.google.firebase.firestore.IgnoreExtraProperties
+import android.os.Parcel
+import android.os.Parcelable
 
+class Customers : Parcelable {
 
-@IgnoreExtraProperties
-class Customers {
-
-    lateinit var billNumber: String
-    lateinit var totalItems: String
-    lateinit var itemType: String
-    lateinit var name: String
-    lateinit var email: String
-    lateinit var contact: String
+    var billNumber: String? = null
+    var totalItems: String? = null
+    var itemType: String? = null
+    var name: String? = null
+    var email: String? = null
+    var contact: String? = null
     var status: Boolean = false
-    lateinit var date: String
+    var date: String? = null
 
-    constructor() {}
+    // Requires empty constructor for firestore
+    constructor()
 
-    constructor(
-        billNumber: String,
-        totalItems: String,
-        itemType: String,
-        name: String,
-        email: String,
-        contact: String,
-        status: Boolean,
-        date: String
+    internal constructor(
+        billNumber: String?,
+        totalItems: String?,
+        itemType: String?,
+        name: String?,
+        email: String?,
+        contact: String?,
+        status: Boolean?,
+        date: String?
     ) {
         this.billNumber = billNumber
         this.totalItems = totalItems
@@ -33,7 +33,43 @@ class Customers {
         this.name = name
         this.email = email
         this.contact = contact
-        this.status = status
+        this.status = status!!
         this.date = date
+    }
+
+    private constructor(`in`: Parcel) {
+        billNumber = `in`.readString()
+        totalItems = `in`.readString()
+        itemType = `in`.readString()
+        name = `in`.readString()
+        email = `in`.readString()
+        contact = `in`.readString()
+        status = `in`.readBoolean()
+        date = `in`.readString()
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(billNumber)
+        dest.writeString(totalItems)
+        dest.writeString(itemType)
+        dest.writeString(name)
+        dest.writeString(email)
+        dest.writeString(contact)
+        dest.writeBoolean(status)
+        dest.writeString(date)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Customers> {
+        override fun createFromParcel(parcel: Parcel): Customers {
+            return Customers(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Customers?> {
+            return arrayOfNulls(size)
+        }
     }
 }

@@ -207,11 +207,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_date"
-                android:tint="@color/iconColor"
                 app:layout_constraintBottom_toBottomOf="@id/date_display_text_view"
                 app:layout_constraintEnd_toStartOf="@id/date_display_text_view"
                 app:layout_constraintTop_toTopOf="@id/date_display_text_view"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                app:tint="@color/iconColor" />
 
             <TextView
                 android:id="@+id/date_display_text_view"

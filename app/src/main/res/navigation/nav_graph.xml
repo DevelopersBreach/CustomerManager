@@ -17,6 +17,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/mainToCustomerListFragment"
+            app:destination="@id/customerListFragment" />
     </fragment>
 
     <fragment
@@ -24,5 +27,11 @@
         android:name="com.developerbreach.customermanager.view.editor.EditorFragment"
         android:label="@string/editor_fragment_label"
         tools:layout="@layout/fragment_editor" />
+
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="com.developerbreach.customermanager.view.list.CustomerListFragment"
+        android:label="Customer's"
+        tools:layout="@layout/fragment_customer_list" />
 
 </navigation>

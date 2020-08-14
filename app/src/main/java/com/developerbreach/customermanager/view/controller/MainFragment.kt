@@ -15,8 +15,8 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(inflater, container, false)
@@ -28,6 +28,10 @@ class MainFragment : Fragment() {
 
         binding.fabAddCustomer.setOnClickListener {
             findNavController().navigate(R.id.mainToEditorFragment)
+        }
+
+        binding.customersTextLabel.setOnClickListener {
+            findNavController().navigate(R.id.mainToCustomerListFragment)
         }
     }
 }

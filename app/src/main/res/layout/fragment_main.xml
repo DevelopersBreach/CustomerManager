@@ -41,6 +41,20 @@
             app:srcCompat="@drawable/ic_add_customer"
             app:tint="@color/colorOnSecondary" />
 
+        <TextView
+            android:id="@+id/customers_text_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dashboard_container"
+            android:layout_marginTop="28dp"
+            android:text="@string/customer_data_label"
+            android:textColor="@color/iconColor"
+            android:padding="16dp"
+            android:background="@drawable/dashboard_container_bg"
+            android:fontFamily="@font/roboto_mono"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

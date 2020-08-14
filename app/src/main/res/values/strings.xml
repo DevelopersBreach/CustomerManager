@@ -43,5 +43,6 @@
     <string name="dialog_error_title_text">Error</string>
     <string name="dialog_error_message_text">Internet connection not available</string>
     <string name="field_validation_error_message">Incorrect</string>
+    <string name="customer_data_label">Customer\'s Data</string>
 
 </resources>

@@ -10,17 +10,37 @@
             type="com.developerbreach.customermanager.viewModel.EditorViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
+        android:fitsSystemWindows="true"
         tools:context=".view.editor.EditorFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_fragment_editor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_fragment_editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:title="Add New Customer"
+                app:menu="@menu/menu_main"
+                app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
+                app:titleTextColor="@color/iconColor"
+                tools:ignore="RtlSymmetry" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bill_number_input"
@@ -28,11 +48,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/hint_customer_bill_text"
-                app:helperTextEnabled="true"
                 app:helperText="@string/helper_text_customer_bill"
+                app:helperTextEnabled="true"
                 app:layout_constraintBottom_toTopOf="@id/item_type_input"
                 app:layout_constraintEnd_toStartOf="@id/number_of_items_input"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +102,9 @@
                 app:boxStrokeColor="@color/textInputOutlineColor"
                 app:hintTextAppearance="@style/TextAppearance.CustomerManager.TextInputLayout.HintText"
                 app:hintTextColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toTopOf="@id/customer_name_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/customer_name_input"
                 app:layout_constraintTop_toBottomOf="@id/bill_number_input"
                 app:startIconDrawable="@drawable/ic_item_type"
                 app:startIconTint="@color/iconColor">
@@ -114,10 +134,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/customer_name_edit_text"
-                    android:inputType="textCapSentences"
                     style="@style/Widget.CustomersManager.TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="textCapSentences" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -175,7 +195,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/status_pending_filled"
-                android:fontFamily="@font/roboto_mono"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
@@ -190,7 +209,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/status_completed_plane"
-                android:fontFamily="@font/roboto_mono"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
@@ -210,15 +228,15 @@
                 app:layout_constraintBottom_toBottomOf="@id/date_display_text_view"
                 app:layout_constraintEnd_toStartOf="@id/date_display_text_view"
                 app:layout_constraintTop_toTopOf="@id/date_display_text_view"
-                tools:ignore="ContentDescription"
-                app:tint="@color/iconColor" />
+                app:tint="@color/iconColor"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/date_display_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:text="@string/date_text"
+                android:fontFamily="@font/montserrat_bold"
+                tools:text="@string/date_tools_text"
                 android:textColor="@color/iconColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/pending_status"
@@ -255,6 +273,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

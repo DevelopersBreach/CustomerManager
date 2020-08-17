@@ -32,6 +32,23 @@
         android:id="@+id/customerListFragment"
         android:name="com.developerbreach.customermanager.view.list.CustomerListFragment"
         android:label="Customer's"
-        tools:layout="@layout/fragment_customer_list" />
+        tools:layout="@layout/fragment_customer_list" >
+        <action
+            android:id="@+id/customerToDetailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        tools:layout="@layout/detail_fragment"
+        android:name="com.developerbreach.customermanager.view.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="customerDetailArgs"
+            app:argType="com.developerbreach.customermanager.model.Customers" />
+        <action
+            android:id="@+id/listToEditorFragment"
+            app:destination="@id/EditorFragment" />
+    </fragment>
 
 </navigation>

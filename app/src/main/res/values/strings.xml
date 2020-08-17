@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">CustomerManager</string>
 
+    <!--  Fragment and view labels  -->
     <string name="main_fragment_label">Customer Manager</string>
     <string name="editor_fragment_label">Add New Customer</string>
     <string name="dashboard">Dashboard</string>
 
+    <!--  Text fields hints  -->
     <string name="hint_customer_bill_text">Bill Number</string>
     <string name="helper_text_customer_bill">EX: 0001</string>
     <string name="hint_customer_name_text">Customer Name</string>
@@ -17,10 +19,12 @@
     <string name="submit_text_button">Submit</string>
     <string name="validate_fields_button">Validate</string>
 
+    <!--  Customer status  -->
     <string name="status_completed">Completed</string>
     <string name="status_pending">Pending</string>
 
-    <string name="date_text">10/08/20</string>
+    <!--  Tools text  -->
+    <string name="date_tools_text">10/08/20</string>
 
     <!--  Menu item  -->
     <string name="action_clean_fields">Clear</string>
@@ -38,11 +42,30 @@
 
     <!--  Firestore Response Message  -->
     <string name="customer_firestore_unsuccessful">UnSuccessful</string>
-    <string name="dialog_positive_button_text">OK</string>
+    <string name="dialog_positive_button_ok">OK</string>
     <string name="dialog_positive_message_text">Customer added successfully</string>
     <string name="dialog_error_title_text">Error</string>
+
+    <!--  Dialog titles and messages  -->
     <string name="dialog_error_message_text">Internet connection not available</string>
+    <string name="dialog_negative_button_cancel">Cancel</string>
+    <string name="dialog_positive_button_delete">Delete</string>
+    <string name="dialog_message_text_delete">All customer details will be removed permanently. Delete now ?</string>
+    <string name="dialog_title_search_error">Error</string>
+
+    <!--  Error response texts  -->
     <string name="field_validation_error_message">Incorrect</string>
     <string name="customer_data_label">Customer\'s Data</string>
+    <string name="search_articles_hint">Search bill number</string>
+    <string name="no_search_results_found">Bill Number Not Found</string>
+
+    <!--  Detail Fragment text labels  -->
+    <string name="label_customer">Customer</string>
+    <string name="label_contact">Contact</string>
+    <string name="label_type">Type</string>
+    <string name="label_status">Status</string>
+    <string name="label_num_items">Total</string>
+    <string name="label_mail">Mail</string>
+    <string name="edit_customer_details_menu_title">Edit</string>
 
 </resources>

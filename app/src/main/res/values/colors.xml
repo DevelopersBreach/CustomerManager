@@ -13,4 +13,6 @@
 
     <color name="iconColor">#D75C3C3F</color>
     <color name="textInputOutlineColor">#FBB8AC</color>
+    <color name="colorBackground">#FFDED9</color>
+    <color name="colorDetailBackground">#F8E0DD</color>
 </resources>

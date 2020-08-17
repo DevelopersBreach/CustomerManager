@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.developerbreach.customermanager.databinding.FragmentCustomerListBinding
 import com.developerbreach.customermanager.utils.COLLECTION_PATH
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -16,10 +17,12 @@ import com.google.firebase.firestore.Query
  */
 class CustomerListFragment : Fragment() {
 
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var query: Query
     private lateinit var binding: FragmentCustomerListBinding
     private lateinit var adapter: CustomersAdapter
+
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var query: Query
+    private lateinit var collection: CollectionReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,7 @@ class CustomerListFragment : Fragment() {
         // Access a Cloud Firestore instance from your Activity
         firestore = FirebaseFirestore.getInstance()
         query = firestore.collection(COLLECTION_PATH)
+        collection = firestore.collection(COLLECTION_PATH)
     }
 
     override fun onCreateView(
@@ -34,6 +38,7 @@ class CustomerListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCustomerListBinding.inflate(inflater, container, false)
+        binding.toolbarContentSearchHeader.firestoreHeader = firestore
         binding.lifecycleOwner = this
         binding.executePendingBindings()
         return binding.root
@@ -41,8 +46,7 @@ class CustomerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        adapter = CustomersAdapter(query)
+        adapter = CustomersAdapter(query, collection)
         binding.customersRecyclerView.adapter = adapter
     }
 

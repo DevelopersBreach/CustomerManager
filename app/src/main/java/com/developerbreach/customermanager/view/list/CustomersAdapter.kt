@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import com.developerbreach.customermanager.databinding.ItemCustomerBinding
 import com.developerbreach.customermanager.model.Customers
 import com.developerbreach.customermanager.view.list.CustomersAdapter.*
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 
 
 class CustomersAdapter(
-    query: Query
+    query: Query,
+    private val collection: CollectionReference
 ) : FirestoreAdapter<CustomersViewHolder>(query) {
 
     class CustomersViewHolder(
@@ -19,10 +21,12 @@ class CustomersAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            snapShot: DocumentSnapshot
-        ) {
+            snapShot: DocumentSnapshot,
+            collection: CollectionReference
+            ) {
             val customers: Customers = snapShot.toObject(Customers::class.java)!!
             binding.customers = customers
+            binding.collection = collection
             binding.executePendingBindings()
         }
     }
@@ -37,6 +41,6 @@ class CustomersAdapter(
 
     override fun onBindViewHolder(holder: CustomersViewHolder, position: Int) {
         val snapShot = getSnapshot(position)!!
-        holder.bind(snapShot)
+        holder.bind(snapShot, collection)
     }
 }

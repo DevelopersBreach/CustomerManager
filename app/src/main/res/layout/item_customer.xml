@@ -8,9 +8,15 @@
         <variable
             name="customers"
             type="com.developerbreach.customermanager.model.Customers" />
+
+        <variable
+            name="collection"
+            type="com.google.firebase.firestore.CollectionReference" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        app:bindCustomerItemClickListener="@{customers}"
+        app:bindCustomerItemLongClickCollection="@{collection}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,14 +39,42 @@
             android:id="@+id/item_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{customers.name}"
             android:layout_marginStart="24dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_marginTop="8dp"
+            android:text="@{customers.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/iconColor"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/item_bill_number"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_bill_number"
             tools:text="Customer Name" />
 
+        <TextView
+            android:id="@+id/item_customer_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{customers.contact}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/iconColor"
+            app:layout_constraintBottom_toBottomOf="@id/item_bill_number"
+            app:layout_constraintStart_toStartOf="@id/item_customer_name"
+            tools:text="9290094891" />
+
+        <ImageView
+            android:id="@+id/item_customer_status"
+            app:bindCustomerStatusItemImageView="@{customers}"
+            app:bindCustomerStatusItemCollection="@{collection}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            tools:src="@drawable/ic_completed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:alpha="0.7"
+            app:tint="#000000"
+            tools:ignore="ContentDescription" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -2,7 +2,9 @@ package com.developerbreach.customermanager.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.IgnoreExtraProperties
 
+@IgnoreExtraProperties
 class Customers : Parcelable {
 
     var billNumber: String? = null

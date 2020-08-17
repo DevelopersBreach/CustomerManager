@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.databinding.ActivityMainBinding
 
@@ -15,14 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityMainBinding>(this,
-            R.layout.activity_main
-        )
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         navController = this.findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
     }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="firestoreHeader"
+            type="com.google.firebase.firestore.FirebaseFirestore" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/search_header_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/customer_search_edit_text"
+            app:bindSearchBillNumberFirestore="@{firestoreHeader}"
+            style="@style/EditText.Customer.Search.SearchBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:hint="@string/search_articles_hint"
+            android:inputType="number"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/search_header_image_view"
+            app:layout_constraintStart_toEndOf="@id/search_header_image_view" />
+
+        <ImageView
+            android:id="@+id/clear_search_query_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:alpha="0.5"
+            android:src="@drawable/ic_clear"
+            android:visibility="invisible"
+            app:bindClearSearchQueryImageView="@{customerSearchEditText}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

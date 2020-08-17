@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -58,6 +59,7 @@ class EditorFragment : Fragment() {
         binding.executePendingBindings()
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
+        ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarFragmentEditor)
         return binding.root
     }
 
@@ -156,10 +158,10 @@ class EditorFragment : Fragment() {
     }
 
     private fun showNoNetworkDialog() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_CustomerManager_MaterialDialog)
+        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_Customer_Dialog)
             .setTitle(getString(R.string.dialog_error_title_text))
             .setMessage(getString(R.string.dialog_error_message_text))
-            .setPositiveButton(getString(R.string.dialog_positive_button_text)) { dialog, _ ->
+            .setPositiveButton(getString(R.string.dialog_positive_button_ok)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -169,10 +171,10 @@ class EditorFragment : Fragment() {
         customerName: String,
         billNumber: String
     ) {
-        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_CustomerManager_MaterialDialog)
+        MaterialAlertDialogBuilder(requireContext(), R.style.Widget_Customer_Dialog)
             .setTitle("$customerName - $billNumber")
             .setMessage(getString(R.string.dialog_positive_message_text))
-            .setPositiveButton(getString(R.string.dialog_positive_button_text)) { dialog, _ ->
+            .setPositiveButton(getString(R.string.dialog_positive_button_ok)) { dialog, _ ->
                 dialog.dismiss()
                 findNavController().navigateUp()
             }

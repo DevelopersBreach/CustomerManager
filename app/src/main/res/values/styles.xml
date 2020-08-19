@@ -45,7 +45,7 @@
     </style>
 
     <style name="TextAppearance.Customer.Toolbar.Main" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="fontFamily">@font/montserrat</item>
     </style>
 
     <style name="EditText.Customer.Search.SearchBox" parent="TextAppearance.MaterialComponents.Headline6">

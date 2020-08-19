@@ -26,11 +26,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="Add New Customer"
                 app:menu="@menu/menu_main"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
                 app:titleTextColor="@color/iconColor"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                tools:title="@string/editor_fragment_label" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -236,12 +236,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
-                tools:text="@string/date_tools_text"
                 android:textColor="@color/iconColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/pending_status"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/pending_status" />
+                app:layout_constraintTop_toTopOf="@id/pending_status"
+                tools:text="@string/date_tools_text" />
 
             <Button
                 android:id="@+id/validate_fields"

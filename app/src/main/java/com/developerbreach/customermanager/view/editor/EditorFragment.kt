@@ -29,6 +29,8 @@ class EditorFragment : Fragment() {
     private val viewModel: EditorViewModel by viewModels()
     private lateinit var binding: FragmentEditorBinding
     private lateinit var firestore: FirebaseFirestore
+    private var customers: Customers? = null
+    private lateinit var toolbarTitleArgs: String
 
     private lateinit var billNumber: String
     private lateinit var numOfItems: String
@@ -38,7 +40,6 @@ class EditorFragment : Fragment() {
     private lateinit var mail: String
     private lateinit var contact: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Access a Cloud Firestore instance from your Activity
@@ -47,6 +48,9 @@ class EditorFragment : Fragment() {
         if (!isNetworkConnected(requireContext())) {
             showNoNetworkDialog()
         }
+
+        customers = EditorFragmentArgs.fromBundle(requireArguments()).editorFragmentArgs
+        toolbarTitleArgs = EditorFragmentArgs.fromBundle(requireArguments()).toolbarTitleArgs
     }
 
     override fun onCreateView(
@@ -60,6 +64,7 @@ class EditorFragment : Fragment() {
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarFragmentEditor)
+        binding.toolbarFragmentEditor.title = toolbarTitleArgs
         return binding.root
     }
 
@@ -76,8 +81,21 @@ class EditorFragment : Fragment() {
         binding.mailEditText.addTextChangedListener(watchMail())
         binding.contactEditText.addTextChangedListener(watchContact())
         performNullOrEmptyCheck()
+        addDataToFields()
 
         binding.submitButton.setOnClickListener(firestoreSubmitListener())
+    }
+
+    private fun addDataToFields() {
+        if (customers != null) {
+            binding.billNumberEditText.setText(customers!!.billNumber)
+            binding.numberOfItemsEditText.setText(customers!!.totalItems)
+            binding.itemTypeDropDown.setText(customers!!.itemType)
+            binding.customerNameEditText.setText(customers!!.name)
+            binding.contactEditText.setText(customers!!.contact)
+            binding.mailEditText.setText(customers!!.email)
+            binding.dateDisplayTextView.text = customers!!.date
+        }
     }
 
     private fun performNullOrEmptyCheck() {
@@ -89,6 +107,7 @@ class EditorFragment : Fragment() {
         ) {
             binding.validateFields.visibility = View.INVISIBLE
         } else {
+
             binding.validateFields.visibility = View.VISIBLE
         }
     }

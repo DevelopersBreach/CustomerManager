@@ -7,11 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
@@ -25,64 +22,15 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-@BindingAdapter("bindNavigateUpButtonDetailFragment")
-fun Toolbar.setNavigateUpButtonDetailFragment(
-    navigation: NavController
-) {
-    this.setNavigationOnClickListener {
-        navigation.navigateUp()
-    }
-}
-
-
-@BindingAdapter("bindCustomerItemClickListener", "bindCustomerItemLongClickCollection")
+@BindingAdapter("bindCustomerItemClickListener")
 fun ConstraintLayout.setCustomerItemClickListener(
-    customers: Customers,
-    collection: CollectionReference
+    customers: Customers
 ) {
     this.setOnClickListener {
         findNavController().navigate(
             CustomerListFragmentDirections.customerToDetailFragment(customers)
         )
     }
-
-    this.setOnLongClickListener {
-        showDeleteDialog(collection, customers, context)
-        true
-    }
-}
-
-private fun showDeleteDialog(
-    collection: CollectionReference,
-    customers: Customers,
-    context: Context
-) {
-    MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
-        .setTitle("Delete Customer - ${customers.billNumber}")
-        .setMessage(context.getString(R.string.dialog_message_text_delete))
-        .setPositiveButtonIcon(ContextCompat.getDrawable(context, R.drawable.ic_delete))
-        .setPositiveButton(context.getString(R.string.dialog_positive_button_delete)) { _, _ ->
-            deleteButtonListener(collection, customers, context)
-        }
-        .setNegativeButton(context.getString(R.string.dialog_negative_button_cancel)) { dialog, _ ->
-            dialog.dismiss()
-        }
-        .show()
-}
-
-private fun deleteButtonListener(
-    collection: CollectionReference,
-    customers: Customers,
-    context: Context
-) {
-    collection.document(customers.billNumber.toString())
-        .delete()
-        .addOnSuccessListener {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
-        .addOnFailureListener {
-            Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show()
-        }
 }
 
 
@@ -244,17 +192,5 @@ fun ImageView.setClearSearchQueryImageView(
 
     imageView.setOnClickListener {
         searchEditText.text = null
-    }
-}
-
-
-@BindingAdapter("bindDetailStatusImageView")
-fun ImageView.setDetailStatusImageView(
-    customers: Customers
-) {
-    if (customers.status) {
-        this.setImageResource(R.drawable.ic_completed)
-    } else {
-        this.setImageResource(R.drawable.ic_clear)
     }
 }

@@ -27,7 +27,11 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fabAddCustomer.setOnClickListener {
-            findNavController().navigate(R.id.mainToEditorFragment)
+                findNavController().navigate(
+                    MainFragmentDirections.mainToEditorFragment(
+                        null,
+                        requireContext().getString(R.string.editor_fragment_label))
+                )
         }
 
         binding.customersTextLabel.setOnClickListener {

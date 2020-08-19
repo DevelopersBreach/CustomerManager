@@ -26,7 +26,15 @@
         android:id="@+id/EditorFragment"
         android:name="com.developerbreach.customermanager.view.editor.EditorFragment"
         android:label="@string/editor_fragment_label"
-        tools:layout="@layout/fragment_editor" />
+        tools:layout="@layout/fragment_editor" >
+        <argument
+            android:name="editorFragmentArgs"
+            app:argType="com.developerbreach.customermanager.model.Customers"
+            app:nullable="true" />
+        <argument
+            android:name="toolbarTitleArgs"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/customerListFragment"
@@ -47,7 +55,7 @@
             android:name="customerDetailArgs"
             app:argType="com.developerbreach.customermanager.model.Customers" />
         <action
-            android:id="@+id/listToEditorFragment"
+            android:id="@+id/detailToEditorFragment"
             app:destination="@id/EditorFragment" />
     </fragment>
 

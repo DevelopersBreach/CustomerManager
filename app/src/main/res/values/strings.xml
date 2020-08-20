@@ -2,6 +2,7 @@
     <string name="app_name">CustomerManager</string>
 
     <!--  Fragment and view labels  -->
+    <string name="main_fragment_title">Shiva Stitch Wear</string>
     <string name="main_fragment_label">Customer Manager</string>
     <string name="editor_fragment_label">Add New Customer</string>
     <string name="dashboard">Dashboard</string>

@@ -17,9 +17,9 @@
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
-    <style name="Widget.CustomerManager.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.Customer.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">
-            @style/TextAppearance.CustomerManager.TextInputLayout.HintText
+            @style/TextAppearance.Customer.TextInputLayout.HintText
         </item>
         <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="android:paddingBottom">8dp</item>
@@ -27,11 +27,11 @@
         <item name="boxStrokeColor">@color/textInputOutlineColor</item>
     </style>
 
-    <style name="TextAppearance.CustomerManager.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
+    <style name="TextAppearance.Customer.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="Widget.CustomersManager.TextInputEditText" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="Widget.Customer.TextInputEditText" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/iconColor</item>
     </style>

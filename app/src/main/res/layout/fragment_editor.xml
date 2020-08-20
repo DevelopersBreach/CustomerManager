@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:menu="@menu/menu_main"
+                app:navigationIcon="@drawable/ic_up_button"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
                 app:titleTextColor="@color/iconColor"
                 tools:ignore="RtlSymmetry"
@@ -44,7 +45,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bill_number_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
+                style="@style/Widget.Customer.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -61,7 +62,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/bill_number_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
+                    style="@style/Widget.Customer.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -71,7 +72,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/number_of_items_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
+                style="@style/Widget.Customer.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -84,7 +85,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/number_of_items_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
+                    style="@style/Widget.Customer.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -100,7 +101,7 @@
                 android:layout_marginBottom="8dp"
                 android:paddingBottom="8dp"
                 app:boxStrokeColor="@color/textInputOutlineColor"
-                app:hintTextAppearance="@style/TextAppearance.CustomerManager.TextInputLayout.HintText"
+                app:hintTextAppearance="@style/TextAppearance.Customer.TextInputLayout.HintText"
                 app:hintTextColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toTopOf="@id/customer_name_input"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +122,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/customer_name_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
+                style="@style/Widget.Customer.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -134,7 +135,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/customer_name_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
+                    style="@style/Widget.Customer.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textCapSentences" />
@@ -143,7 +144,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/customer_mail_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
+                style="@style/Widget.Customer.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -156,7 +157,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/mail_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
+                    style="@style/Widget.Customer.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress" />
@@ -165,7 +166,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/customer_contact_input"
-                style="@style/Widget.CustomerManager.TextInputLayout"
+                style="@style/Widget.Customer.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -181,7 +182,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/contact_edit_text"
-                    style="@style/Widget.CustomersManager.TextInputEditText"
+                    style="@style/Widget.Customer.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"

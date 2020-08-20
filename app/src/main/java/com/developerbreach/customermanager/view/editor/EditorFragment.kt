@@ -63,9 +63,16 @@ class EditorFragment : Fragment() {
         binding.executePendingBindings()
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
+        setFragmentToolbar()
+        return binding.root
+    }
+
+    private fun setFragmentToolbar() {
         ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarFragmentEditor)
         binding.toolbarFragmentEditor.title = toolbarTitleArgs
-        return binding.root
+        binding.toolbarFragmentEditor.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

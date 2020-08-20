@@ -7,44 +7,56 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.databinding.DetailFragmentBinding
 import com.developerbreach.customermanager.model.Customers
 import com.developerbreach.customermanager.utils.COLLECTION_PATH
+import com.developerbreach.customermanager.viewModel.DetailViewModel
+import com.developerbreach.customermanager.viewModel.DetailViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 class DetailFragment : Fragment() {
 
+    private lateinit var viewModel: DetailViewModel
     private lateinit var binding: DetailFragmentBinding
-    private lateinit var customers: Customers
     private lateinit var collection: CollectionReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        customers = DetailFragmentArgs.fromBundle(requireArguments()).customerDetailArgs
         collection = FirebaseFirestore.getInstance().collection(COLLECTION_PATH)
+
+        val customers = DetailFragmentArgs.fromBundle(requireArguments()).customerDetailArgs
+        val factory = DetailViewModelFactory(requireActivity().application, customers)
+        viewModel = ViewModelProvider(this, factory).get(DetailViewModel::class.java)
+
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            this.duration = 300L
+            this.containerColor = resources.getColor(R.color.iconColor, requireContext().theme)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = DetailFragmentBinding.inflate(inflater, container, false)
-        binding.customer = customers
+        binding.customer = viewModel.selectedCustomer
         binding.lifecycleOwner = this
         binding.executePendingBindings()
         setHasOptionsMenu(true)
-        ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarDetailFragment)
+        setFragmentToolbar()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    private fun setFragmentToolbar() {
+        ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarDetailFragment)
+        binding.toolbarDetailFragment.title = ""
         binding.toolbarDetailFragment.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -58,7 +70,7 @@ class DetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.delete_customer_menu_item -> showDeleteDialog(
-                customers,
+                viewModel.selectedCustomer,
                 requireContext()
             )
         }
@@ -67,7 +79,7 @@ class DetailFragment : Fragment() {
 
     private fun showDeleteDialog(
         customers: Customers,
-        context: Context
+        context: Context,
     ) {
         MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
             .setTitle("Delete Customer - ${customers.billNumber}")
@@ -84,7 +96,7 @@ class DetailFragment : Fragment() {
 
     private fun deleteButtonListener(
         customers: Customers,
-        context: Context
+        context: Context,
     ) {
         collection.document(customers.billNumber.toString())
             .delete()

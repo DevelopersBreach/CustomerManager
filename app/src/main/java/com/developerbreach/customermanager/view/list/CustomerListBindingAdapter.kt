@@ -2,6 +2,7 @@ package com.developerbreach.customermanager.view.list
 
 import android.content.Context
 import android.view.View
+import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -10,11 +11,15 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
 import com.developerbreach.customermanager.utils.AppTextWatcher
 import com.developerbreach.customermanager.utils.COLLECTION_PATH
 import com.developerbreach.customermanager.utils.COLLECTION_PATH_FIELD_STATUS
+import com.developerbreach.customermanager.utils.itemViewAnimation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
@@ -24,12 +29,31 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 @BindingAdapter("bindCustomerItemClickListener")
 fun ConstraintLayout.setCustomerItemClickListener(
-    customers: Customers
+    customers: Customers,
 ) {
-    this.setOnClickListener {
-        findNavController().navigate(
-            CustomerListFragmentDirections.customerToDetailFragment(customers)
-        )
+    val parent = this
+    parent.setOnClickListener {
+
+        itemViewAnimation(
+            context = context,
+            view = parent,
+            duration = 250L,
+            animationProperty = R.anim.fade_enter_anim
+        ).setAnimationListener(object : Animation.AnimationListener {
+
+            override fun onAnimationEnd(p0: Animation?) {
+                TransitionManager.beginDelayedTransition(parent, Fade())
+                findNavController().navigate(
+                    CustomerListFragmentDirections.customerToDetailFragment(customers),
+                    FragmentNavigatorExtras(
+                        parent to customers.billNumber.toString()
+                    )
+                )
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {}
+            override fun onAnimationStart(p0: Animation?) {}
+        })
     }
 }
 
@@ -37,7 +61,7 @@ fun ConstraintLayout.setCustomerItemClickListener(
 @BindingAdapter("bindCustomerStatusItemImageView", "bindCustomerStatusItemCollection")
 fun ImageView.setCustomerStatusItemImageView(
     customers: Customers,
-    collection: CollectionReference
+    collection: CollectionReference,
 ) {
     if (customers.status) {
         this.setImageResource(R.drawable.ic_completed)
@@ -68,7 +92,7 @@ private fun showStatusDialog(
     collection: CollectionReference,
     dialogTitle: String,
     dialogMessage: String,
-    dialogPositiveButton: String
+    dialogPositiveButton: String,
 ) {
     MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
         .setTitle(dialogTitle)
@@ -85,7 +109,7 @@ private fun showStatusDialog(
 private fun statusPositiveListener(
     context: Context,
     customers: Customers,
-    collection: CollectionReference
+    collection: CollectionReference,
 ) {
     collection.document(customers.billNumber.toString())
         .update(COLLECTION_PATH_FIELD_STATUS, !customers.status)
@@ -100,7 +124,7 @@ private fun statusPositiveListener(
 
 @BindingAdapter("bindSearchBillNumberFirestore")
 fun AppCompatEditText.setSearchBillNumberFirestore(
-    firestore: FirebaseFirestore
+    firestore: FirebaseFirestore,
 ) {
     this.addTextChangedListener(object : AppTextWatcher() {
         override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -129,7 +153,7 @@ fun AppCompatEditText.setSearchBillNumberFirestore(
 
         private fun setDialogViews(
             dialog: AlertDialog,
-            customer: Customers
+            customer: Customers,
         ) {
             dialog.setOnShowListener { dialogInterface ->
                 dialogInterface as AlertDialog
@@ -177,7 +201,7 @@ fun AppCompatEditText.setSearchBillNumberFirestore(
 
 @BindingAdapter("bindClearSearchQueryImageView")
 fun ImageView.setClearSearchQueryImageView(
-    searchEditText: AppCompatEditText
+    searchEditText: AppCompatEditText,
 ) {
     val imageView = this
     searchEditText.addTextChangedListener(object : AppTextWatcher() {

@@ -10,6 +10,7 @@ import com.developerbreach.customermanager.utils.COLLECTION_PATH
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -39,6 +40,7 @@ class CustomerListFragment : Fragment() {
     ): View? {
         binding = FragmentCustomerListBinding.inflate(inflater, container, false)
         binding.toolbarContentSearchHeader.firestoreHeader = firestore
+        postponeEnterTransition(100L, TimeUnit.MILLISECONDS)
         binding.lifecycleOwner = this
         binding.executePendingBindings()
         return binding.root

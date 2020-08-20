@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="Shiva Stitch Wear"
+                app:title="@string/main_fragment_title"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
                 app:titleTextColor="@color/iconColor"
                 tools:ignore="RtlSymmetry" />

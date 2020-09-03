@@ -174,7 +174,6 @@
                 android:hint="@string/hint_customer_contact_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="10"
-                app:layout_constraintBottom_toTopOf="@id/pending_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/customer_mail_input"
@@ -190,45 +189,17 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/pending_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/status_pending_filled"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="@string/status_pending"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customer_contact_input" />
-
-            <TextView
-                android:id="@+id/completed_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/status_completed_plane"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:text="@string/status_completed"
-                android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@id/pending_status"
-                app:layout_constraintTop_toTopOf="@id/pending_status" />
-
             <ImageView
                 android:id="@+id/date_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_date"
-                app:layout_constraintBottom_toBottomOf="@id/date_display_text_view"
-                app:layout_constraintEnd_toStartOf="@id/date_display_text_view"
-                app:layout_constraintTop_toTopOf="@id/date_display_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customer_contact_input"
                 app:tint="@color/iconColor"
                 tools:ignore="ContentDescription" />
 
@@ -236,12 +207,26 @@
                 android:id="@+id/date_display_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/iconColor"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/pending_status"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/pending_status"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/date_image_view"
+                app:layout_constraintEnd_toStartOf="@id/date_image_view"
+                app:layout_constraintTop_toTopOf="@id/date_image_view"
+                tools:text="@string/date_tools_text" />
+
+            <TextView
+                android:id="@+id/date_delivery_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/iconColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/date_image_view"
+                app:layout_constraintStart_toEndOf="@id/date_image_view"
+                app:layout_constraintTop_toTopOf="@id/date_image_view"
                 tools:text="@string/date_tools_text" />
 
             <Button

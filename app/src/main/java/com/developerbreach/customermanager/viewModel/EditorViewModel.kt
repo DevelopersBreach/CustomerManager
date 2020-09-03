@@ -13,27 +13,29 @@ import java.util.*
 class EditorViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = application.applicationContext
+    val calendar: Calendar = Calendar.getInstance()
 
-    private var _isStitchCompleted = false
-    var isStitchCompleted: Boolean
-        get() = _isStitchCompleted
-        set(value) {
-            _isStitchCompleted = value
-        }
+    private var _currentDate: Int = 0
+    val date: Int
+        get() = _currentDate
 
-    fun stitchStatus(status: Boolean): Boolean {
-        _isStitchCompleted = status
-        return status
-    }
+    private var _currentMonth: Int = 0
+    val month: Int
+        get() = _currentMonth
 
-    fun validateDate(): String {
-        val currentDate = Calendar.getInstance().time.toString()
-        return currentDate.removeRange(11, 30).drop(4)
+    private var _currentYear: Int = 0
+    val year: Int
+        get() = _currentYear
+
+    init {
+        _currentDate = calendar.get(Calendar.DATE)
+        _currentMonth = calendar.get(Calendar.MONTH) + 1
+        _currentYear = calendar.get(Calendar.YEAR)
     }
 
     fun validateCustomerDetails(
         text: String?,
-        textInputLayout: TextInputLayout
+        textInputLayout: TextInputLayout,
     ): String {
         if (text?.isEmpty()!!) {
             textInputLayout.isErrorEnabled = true
@@ -47,7 +49,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     fun isValidEmail(
         customerMail: Editable?,
-        textInputLayout: TextInputLayout
+        textInputLayout: TextInputLayout,
     ): String {
         val correctMail = !isNullOrEmpty(customerMail.toString()) &&
                 Patterns.EMAIL_ADDRESS.matcher(customerMail.toString()).matches()
@@ -64,7 +66,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     fun isValidContact(
         customerContact: Editable?,
-        textInputLayout: TextInputLayout
+        textInputLayout: TextInputLayout,
     ): String {
         when {
             customerContact?.isEmpty()!! -> {

@@ -1,10 +1,12 @@
 package com.developerbreach.customermanager.view.editor
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,12 +21,14 @@ import com.developerbreach.customermanager.viewModel.EditorViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.DateFormat
+import java.util.*
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class EditorFragment : Fragment() {
+class EditorFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private val viewModel: EditorViewModel by viewModels()
     private lateinit var binding: FragmentEditorBinding
@@ -37,6 +41,7 @@ class EditorFragment : Fragment() {
     private lateinit var customerName: String
     private lateinit var dropDownSelection: String
     private lateinit var currentDate: String
+    private lateinit var deliveryDate: String
     private lateinit var mail: String
     private lateinit var contact: String
 
@@ -55,7 +60,7 @@ class EditorFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEditorBinding.inflate(inflater, container, false)
@@ -78,7 +83,6 @@ class EditorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setStitchStatusAndListener()
         setCurrentDate()
         setItemDropDownType()
 
@@ -114,29 +118,43 @@ class EditorFragment : Fragment() {
         ) {
             binding.validateFields.visibility = View.INVISIBLE
         } else {
-
             binding.validateFields.visibility = View.VISIBLE
         }
     }
 
-    private fun setStitchStatusAndListener() {
+    private fun setCurrentDate() {
 
-        binding.completedStatus.setOnClickListener {
-            binding.completedStatus.setBackgroundResource(R.drawable.status_completed_filled)
-            binding.pendingStatus.setBackgroundResource(R.drawable.status_pending_plane)
-            viewModel.stitchStatus(true)
+        val dayOfMonth = viewModel.date
+        val month = viewModel.month
+        val year = viewModel.year
+
+        val currentDate = "$dayOfMonth/$month/$year"
+        binding.dateDisplayTextView.text = currentDate
+
+        deliveryDate = "${dayOfMonth + 1}/$month/$year"
+        binding.dateDeliveryTextView.text = deliveryDate
+
+        binding.dateDeliveryTextView.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(requireContext(), { view, i, i2, i3 ->
+                onDateSet(view, i, i2, i3)
+            }, year, month, dayOfMonth)
+            datePickerDialog.show()
         }
 
-        binding.pendingStatus.setOnClickListener {
-            binding.completedStatus.setBackgroundResource(R.drawable.status_completed_plane)
-            binding.pendingStatus.setBackgroundResource(R.drawable.status_pending_filled)
-            viewModel.stitchStatus(false)
+        binding.dateDisplayTextView.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(requireContext(), { view, i, i2, i3 ->
+                onDateSet(view, i, i2, i3)
+            }, year, month, dayOfMonth)
+            datePickerDialog.show()
         }
     }
 
-    private fun setCurrentDate() {
-        binding.dateDisplayTextView.text = viewModel.validateDate()
-        currentDate = viewModel.validateDate()
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        viewModel.calendar.set(Calendar.YEAR, year)
+        viewModel.calendar.set(Calendar.MONTH, month)
+        viewModel.calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        val format = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(viewModel.calendar.time)
+        binding.dateDeliveryTextView.text = format
     }
 
     private fun setItemDropDownType() {
@@ -169,8 +187,9 @@ class EditorFragment : Fragment() {
             customerName,
             mail,
             contact,
-            viewModel.isStitchCompleted,
-            currentDate
+            false,
+            currentDate,
+            deliveryDate
         )
 
         if (isNetworkConnected(requireContext())) {
@@ -195,7 +214,7 @@ class EditorFragment : Fragment() {
 
     private fun firestoreSuccessListener(
         customerName: String,
-        billNumber: String
+        billNumber: String,
     ) {
         MaterialAlertDialogBuilder(requireContext(), R.style.Widget_Customer_Dialog)
             .setTitle("$customerName - $billNumber")

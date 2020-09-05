@@ -39,7 +39,7 @@ class Customers : Parcelable {
         this.contact = contact
         this.status = status!!
         this.date = date
-        this.delivery = date
+        this.delivery = delivery
     }
 
     private constructor(parcel: Parcel) {

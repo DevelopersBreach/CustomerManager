@@ -3,11 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="navController"
+            type="androidx.navigation.NavController" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.controller.MainFragment">
+        tools:context=".view.dashboard.DashboardFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_fragment_main"
@@ -34,6 +41,18 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
+                android:textColor="@color/iconColor"
+                tools:text="@string/user_name_tools_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:id="@+id/logged_in_user_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/dashboard_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +62,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:textColor="@color/iconColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/logged_in_user_name" />
 
             <View
                 android:id="@+id/dashboard_container"
@@ -55,6 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@id/dashboard_label" />
 
             <TextView
+                app:bindCustomerDataLabelListener="@{navController}"
                 android:id="@+id/customers_text_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,6 +91,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            app:bindDashboardFabListener="@{navController}"
             android:id="@+id/fab_add_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -3,7 +3,7 @@
 
     <!--  Fragment and view labels  -->
     <string name="main_fragment_title">Shiva Stitch Wear</string>
-    <string name="main_fragment_label">Customer Manager</string>
+    <string name="dashboard_fragment_label">Customer Manager</string>
     <string name="editor_fragment_label">Add New Customer</string>
     <string name="dashboard">Dashboard</string>
     <string name="existing_customer_toolbar_title">Existing Customer</string>
@@ -59,7 +59,6 @@
     <string name="field_validation_error_message">Incorrect</string>
     <string name="customer_data_label">Customer\'s Data</string>
     <string name="search_articles_hint">Search bill number</string>
-    <string name="no_search_results_found">Bill Number Not Found</string>
 
     <!--  Detail Fragment text labels  -->
     <string name="label_customer">Customer</string>
@@ -67,8 +66,16 @@
     <string name="label_type">Type</string>
     <string name="label_status">Status</string>
     <string name="label_num_items">Total</string>
-    <string name="label_mail">Mail</string>
 
     <string name="delete_customer_menu_title">Delete</string>
+
+
+    <!--  LoginFragment  -->
+    <string name="welcome_label">Welcome !</string>
+    <string name="login_status">
+        You are currently not logged in. Please login from below to continue.
+    </string>
+    <string name="login">Login</string>
+    <string name="user_name_tools_text">Username</string>
 
 </resources>

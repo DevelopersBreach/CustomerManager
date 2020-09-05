@@ -9,14 +9,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
-import com.developerbreach.customermanager.utils.AppTextWatcher
 import com.developerbreach.customermanager.utils.COLLECTION_PATH
 import com.developerbreach.customermanager.utils.COLLECTION_PATH_FIELD_STATUS
 import com.developerbreach.customermanager.utils.itemViewAnimation
@@ -126,76 +127,76 @@ private fun statusPositiveListener(
 fun AppCompatEditText.setSearchBillNumberFirestore(
     firestore: FirebaseFirestore,
 ) {
-    this.addTextChangedListener(object : AppTextWatcher() {
-        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    this.doAfterTextChanged { editable ->
+        val query = editable.toString()
+        if (query.length == 4) {
 
-            val query = text.toString()
-            if (query.length == 4) {
-
-                val docSnapShot: Task<DocumentSnapshot> =
-                    firestore.collection(COLLECTION_PATH).document(query).get()
-                docSnapShot.addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val customer = document.toObject(Customers::class.java)
-                        showResultsDialog(customer)
-                    } else {
-                        showErrorDialog(query)
-                    }
-                }
-            }
-        }
-
-        private fun showResultsDialog(customer: Customers?) {
-            val dialog: AlertDialog = createMaterialDialog()
-            setDialogViews(dialog, customer!!)
-            dialog.show()
-        }
-
-        private fun setDialogViews(
-            dialog: AlertDialog,
-            customer: Customers,
-        ) {
-            dialog.setOnShowListener { dialogInterface ->
-                dialogInterface as AlertDialog
-                val billNumber: TextView =
-                    dialogInterface.findViewById(R.id.search_dialog_bill_number_text_view)!!
-                val customerName: TextView =
-                    dialogInterface.findViewById(R.id.search_dialog_customer_name_text_view)!!
-                val status: ImageView =
-                    dialogInterface.findViewById(R.id.search_dialog_customer_status_image_view)!!
-
-                billNumber.text = customer.billNumber
-                customerName.text = customer.name
-                if (customer.status) {
-                    status.setImageResource(R.drawable.ic_completed)
+            val docSnapShot: Task<DocumentSnapshot> =
+                firestore.collection(COLLECTION_PATH).document(query).get()
+            docSnapShot.addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val customer = document.toObject(Customers::class.java)
+                    showResultsDialog(customer)
                 } else {
-                    status.setImageResource(R.drawable.ic_clear)
-                }
-
-                billNumber.setOnClickListener {
-                    dialog.dismiss()
-                    findNavController().navigate(
-                        CustomerListFragmentDirections.customerToDetailFragment(customer)
-                    )
+                    showErrorDialog(query, context)
                 }
             }
         }
+    }
+}
 
-        private fun createMaterialDialog(): AlertDialog =
-            MaterialAlertDialogBuilder(context)
-                .setView(R.layout.results_dialog)
-                .create()
+private fun AppCompatEditText.showResultsDialog(customer: Customers?) {
+    val dialog: AlertDialog = createMaterialDialog(context)
+    setDialogViews(dialog, customer!!, findNavController())
+    dialog.show()
+}
 
-        private fun showErrorDialog(query: String) {
-            MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
-                .setTitle(context.getString(R.string.dialog_title_search_error))
-                .setMessage("Bill number $query not found.")
-                .setPositiveButton(context.getString(R.string.dialog_positive_button_ok)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+private fun setDialogViews(
+    dialog: AlertDialog,
+    customer: Customers,
+    findNavController: NavController,
+) {
+    dialog.setOnShowListener { view ->
+        view as AlertDialog
+
+        with(view.findViewById<TextView>(R.id.search_dialog_bill_number_text_view)!!) {
+            this.text = customer.billNumber
+            this.setOnClickListener {
+                dialog.dismiss()
+                findNavController.navigate(
+                    CustomerListFragmentDirections.customerToDetailFragment(customer)
+                )
+            }
         }
-    })
+
+        with(view.findViewById<TextView>(R.id.search_dialog_customer_name_text_view)!!) {
+            this.text = customer.name
+        }
+
+        with(view.findViewById<ImageView>(R.id.search_dialog_customer_status_image_view)!!) {
+            if (customer.status) {
+                this.setImageResource(R.drawable.ic_completed)
+            } else {
+                this.setImageResource(R.drawable.ic_clear)
+            }
+        }
+    }
+}
+
+private fun createMaterialDialog(context: Context): AlertDialog {
+    return MaterialAlertDialogBuilder(context)
+        .setView(R.layout.results_dialog)
+        .create()
+}
+
+private fun showErrorDialog(query: String, context: Context) {
+    MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
+        .setTitle(context.getString(R.string.dialog_title_search_error))
+        .setMessage("Bill number $query not found.")
+        .setPositiveButton(context.getString(R.string.dialog_positive_button_ok)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
 }
 
 
@@ -203,18 +204,15 @@ fun AppCompatEditText.setSearchBillNumberFirestore(
 fun ImageView.setClearSearchQueryImageView(
     searchEditText: AppCompatEditText,
 ) {
-    val imageView = this
-    searchEditText.addTextChangedListener(object : AppTextWatcher() {
-        override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            if (searchEditText.text!!.isEmpty()) {
-                imageView.visibility = View.INVISIBLE
-            } else {
-                imageView.visibility = View.VISIBLE
-            }
+    searchEditText.doAfterTextChanged {
+        if (searchEditText.text!!.isEmpty()) {
+            this.visibility = View.INVISIBLE
+        } else {
+            this.visibility = View.VISIBLE
         }
-    })
+    }
 
-    imageView.setOnClickListener {
+    this.setOnClickListener {
         searchEditText.text = null
     }
 }

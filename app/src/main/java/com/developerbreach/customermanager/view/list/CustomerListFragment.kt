@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.developerbreach.customermanager.databinding.FragmentCustomerListBinding
-import com.developerbreach.customermanager.utils.COLLECTION_PATH
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import java.util.concurrent.TimeUnit
 
 
@@ -18,28 +15,16 @@ import java.util.concurrent.TimeUnit
  */
 class CustomerListFragment : Fragment() {
 
+    private val viewModel: CustomerListViewModel by viewModels()
     private lateinit var binding: FragmentCustomerListBinding
     private lateinit var adapter: CustomersAdapter
 
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var query: Query
-    private lateinit var collection: CollectionReference
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Access a Cloud Firestore instance from your Activity
-        firestore = FirebaseFirestore.getInstance()
-        query = firestore.collection(COLLECTION_PATH)
-        collection = firestore.collection(COLLECTION_PATH)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentCustomerListBinding.inflate(inflater, container, false)
-        binding.toolbarContentSearchHeader.firestoreHeader = firestore
+        binding.toolbarContentSearchHeader.firestoreHeader = viewModel.firestore
         postponeEnterTransition(100L, TimeUnit.MILLISECONDS)
         binding.lifecycleOwner = this
         binding.executePendingBindings()
@@ -48,7 +33,7 @@ class CustomerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = CustomersAdapter(query, collection)
+        adapter = CustomersAdapter(viewModel.query, viewModel.collection)
         binding.customersRecyclerView.adapter = adapter
     }
 

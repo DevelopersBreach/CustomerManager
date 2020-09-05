@@ -26,7 +26,6 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/customer_search_edit_text"
-            app:bindSearchBillNumberFirestore="@{firestoreHeader}"
             style="@style/EditText.Customer.Search.SearchBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,9 +34,10 @@
             android:inputType="number"
             android:maxLength="4"
             android:maxLines="1"
-            android:paddingTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/search_header_image_view"
-            app:layout_constraintStart_toEndOf="@id/search_header_image_view" />
+            app:bindSearchBillNumberFirestore="@{firestoreHeader}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/search_header_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/clear_search_query_text_view"

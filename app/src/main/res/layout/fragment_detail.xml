@@ -8,6 +8,10 @@
         <variable
             name="customer"
             type="com.developerbreach.customermanager.model.Customers" />
+
+        <variable
+            name="activity"
+            type="androidx.fragment.app.FragmentActivity" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -30,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:menu="@menu/menu_delete"
+                app:bindDetailFragmentNavigationIcon="@{activity}"
                 app:navigationIcon="@drawable/ic_up_button" />
 
         </com.google.android.material.appbar.AppBarLayout>

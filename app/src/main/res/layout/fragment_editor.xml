@@ -7,7 +7,19 @@
 
         <variable
             name="viewModel"
-            type="com.developerbreach.customermanager.viewModel.EditorViewModel" />
+            type="com.developerbreach.customermanager.view.editor.EditorViewModel" />
+
+        <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
+            name="activity"
+            type="androidx.fragment.app.FragmentActivity" />
+
+        <variable
+            name="toolbarTitleArgs"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -27,6 +39,8 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:menu="@menu/menu_main"
+                app:bindEditorFragmentNavigationIcon="@{activity}"
+                app:bindEditorFragmentTitle="@{toolbarTitleArgs}"
                 app:navigationIcon="@drawable/ic_up_button"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
                 app:titleTextColor="@color/iconColor"
@@ -116,7 +130,8 @@
                     android:layout_height="match_parent"
                     android:hint="@string/hint_item_type_text"
                     android:inputType="none"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    app:bindItemTypeDropDown="@{context}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,6 +226,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/iconColor"
                 android:textSize="20sp"
+                app:bindCurrentDateTextView="@{viewModel}"
                 app:layout_constraintBottom_toBottomOf="@id/date_image_view"
                 app:layout_constraintEnd_toStartOf="@id/date_image_view"
                 app:layout_constraintTop_toTopOf="@id/date_image_view"
@@ -224,6 +240,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/iconColor"
                 android:textSize="20sp"
+                app:bindDeliveryDateTextView="@{viewModel}"
                 app:layout_constraintBottom_toBottomOf="@id/date_image_view"
                 app:layout_constraintStart_toEndOf="@id/date_image_view"
                 app:layout_constraintTop_toTopOf="@id/date_image_view"
@@ -247,12 +264,21 @@
 
             <Button
                 android:id="@+id/submit_button"
+                bindDeliveryDateTextSubmission="@{dateDeliveryTextView}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="@color/iconColor"
                 android:text="@string/submit_text_button"
                 android:visibility="gone"
+                app:bindBillNumberEditSubmission="@{billNumberEditText}"
+                app:bindContactEditSubmission="@{contactEditText}"
+                app:bindCurrentDateTextSubmission="@{dateDisplayTextView}"
+                app:bindCustomerNameEditSubmission="@{customerNameEditText}"
+                app:bindItemTypeDropDownSubmission="@{itemTypeDropDown}"
+                app:bindMailEditSubmission="@{mailEditText}"
+                app:bindNumOfItemsEditSubmission="@{numberOfItemsEditText}"
+                app:bindSubmitButton="@{viewModel}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

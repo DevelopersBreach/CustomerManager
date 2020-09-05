@@ -42,32 +42,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/customers_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/customers_recycler_view"
-                android:name="com.developerbreach.customermanager.view.list.CustomerListFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                app:layoutManager="LinearLayoutManager"
-                tools:context=".view.list.CustomerListFragment"
-                tools:listitem="@layout/item_customer" />
-
-            <TextView
-                android:id="@+id/no_search_results_found_text"
-                style="@style/TextAppearance.Article.Result.Error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/no_search_results_found"
-                tools:visibility="invisible" />
-
-        </FrameLayout>
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".view.list.CustomerListFragment"
+            tools:listitem="@layout/item_customer" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

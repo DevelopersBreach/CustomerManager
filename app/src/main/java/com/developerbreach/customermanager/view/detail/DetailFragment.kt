@@ -4,32 +4,24 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.developerbreach.customermanager.R
-import com.developerbreach.customermanager.databinding.DetailFragmentBinding
+import com.developerbreach.customermanager.databinding.FragmentDetailBinding
 import com.developerbreach.customermanager.model.Customers
-import com.developerbreach.customermanager.utils.COLLECTION_PATH
-import com.developerbreach.customermanager.viewModel.DetailViewModel
-import com.developerbreach.customermanager.viewModel.DetailViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialContainerTransform
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class DetailFragment : Fragment() {
 
     private lateinit var viewModel: DetailViewModel
-    private lateinit var binding: DetailFragmentBinding
-    private lateinit var collection: CollectionReference
+    private lateinit var binding: FragmentDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        collection = FirebaseFirestore.getInstance().collection(COLLECTION_PATH)
 
         val customers = DetailFragmentArgs.fromBundle(requireArguments()).customerDetailArgs
         val factory = DetailViewModelFactory(requireActivity().application, customers)
@@ -45,21 +37,13 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = DetailFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.customer = viewModel.selectedCustomer
+        binding.activity = requireActivity()
         binding.lifecycleOwner = this
         binding.executePendingBindings()
         setHasOptionsMenu(true)
-        setFragmentToolbar()
         return binding.root
-    }
-
-    private fun setFragmentToolbar() {
-        ((activity) as AppCompatActivity).setSupportActionBar(binding.toolbarDetailFragment)
-        binding.toolbarDetailFragment.title = ""
-        binding.toolbarDetailFragment.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,10 +53,11 @@ class DetailFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.delete_customer_menu_item -> showDeleteDialog(
-                viewModel.selectedCustomer,
-                requireContext()
-            )
+            R.id.delete_customer_menu_item ->
+                showDeleteDialog(
+                    viewModel.selectedCustomer,
+                    requireContext()
+                )
         }
         return super.onOptionsItemSelected(item)
     }
@@ -98,7 +83,7 @@ class DetailFragment : Fragment() {
         customers: Customers,
         context: Context,
     ) {
-        collection.document(customers.billNumber.toString())
+        viewModel.collection.document(customers.billNumber.toString())
             .delete()
             .addOnSuccessListener {
                 findNavController().navigateUp()

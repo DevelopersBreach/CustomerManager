@@ -1,11 +1,27 @@
 package com.developerbreach.customermanager.view.detail
 
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
+
+@BindingAdapter("bindDetailFragmentNavigationIcon")
+fun Toolbar.setDetailFragmentNavigationIcon(
+    activity: FragmentActivity,
+) {
+    ((activity) as AppCompatActivity).setSupportActionBar(this)
+    this.title = ""
+    this.setNavigationOnClickListener {
+        findNavController().navigateUp()
+    }
+}
 
 
 @BindingAdapter("bindDetailFabEditCustomer")

@@ -1,18 +1,22 @@
-package com.developerbreach.customermanager.viewModel
+package com.developerbreach.customermanager.view.editor
 
 import android.app.Application
 import android.text.Editable
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
 import com.developerbreach.customermanager.R
+import com.developerbreach.customermanager.utils.COLLECTION_PATH
+import com.developerbreach.customermanager.utils.isNetworkConnected
 import com.google.android.material.textfield.TextInputLayout
 import com.google.common.base.Strings.isNullOrEmpty
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
 class EditorViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val context = application.applicationContext
+    var collection: CollectionReference
     val calendar: Calendar = Calendar.getInstance()
 
     private var _currentDate: Int = 0
@@ -27,16 +31,26 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
     val year: Int
         get() = _currentYear
 
+    private val _isConnected: Boolean
+    val isConnected: Boolean
+        get() = _isConnected
+
     init {
+        val firestore = FirebaseFirestore.getInstance()
+        collection = firestore.collection(COLLECTION_PATH)
+
         _currentDate = calendar.get(Calendar.DATE)
-        _currentMonth = calendar.get(Calendar.MONTH) + 1
+        _currentMonth = calendar.get(Calendar.MONTH)
         _currentYear = calendar.get(Calendar.YEAR)
+
+        _isConnected = isNetworkConnected(application.applicationContext)
     }
 
-    fun validateCustomerDetails(
+    fun validateField(
         text: String?,
         textInputLayout: TextInputLayout,
     ): String {
+        val context = textInputLayout.context
         if (text?.isEmpty()!!) {
             textInputLayout.isErrorEnabled = true
             textInputLayout.error = context.getString(R.string.field_required_error_text)
@@ -54,6 +68,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
         val correctMail = !isNullOrEmpty(customerMail.toString()) &&
                 Patterns.EMAIL_ADDRESS.matcher(customerMail.toString()).matches()
 
+        val context = textInputLayout.context
         if (correctMail) {
             textInputLayout.isErrorEnabled = false
         } else {
@@ -68,6 +83,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
         customerContact: Editable?,
         textInputLayout: TextInputLayout,
     ): String {
+        val context = textInputLayout.context
         when {
             customerContact?.isEmpty()!! -> {
                 textInputLayout.isErrorEnabled = true

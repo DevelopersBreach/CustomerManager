@@ -1,4 +1,4 @@
-package com.developerbreach.customermanager.viewModel
+package com.developerbreach.customermanager.view.detail
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -17,5 +17,4 @@ class DetailViewModelFactory internal constructor(
         }
         throw IllegalArgumentException("Cannot create Instance for DetailViewModel class")
     }
-
 }

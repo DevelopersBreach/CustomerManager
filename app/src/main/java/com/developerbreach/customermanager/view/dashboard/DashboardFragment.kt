@@ -2,7 +2,6 @@ package com.developerbreach.customermanager.view.dashboard
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +20,7 @@ class DashboardFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -35,8 +34,9 @@ class DashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel.authenticationState.observe(viewLifecycleOwner, { authState ->
             if (authState == AuthenticationState.AUTHENTICATED) {
-                val googleUser = FirebaseAuth.getInstance().currentUser!!
-                Toast.makeText(context, googleUser.displayName, Toast.LENGTH_SHORT).show()
+                val googleUsername = FirebaseAuth.getInstance().currentUser!!.displayName
+                val welcomeLabel = getString(R.string.welcome_login_message, googleUsername)
+                binding.loggedInUserName.text = welcomeLabel
             } else if (authState == AuthenticationState.UNAUTHENTICATED) {
                 findNavController().navigate(
                     R.id.dashboardToLoginFragment

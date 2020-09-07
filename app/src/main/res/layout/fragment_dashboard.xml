@@ -28,7 +28,6 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:title="@string/main_fragment_title"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
-                app:titleTextColor="@color/iconColor"
                 tools:ignore="RtlSymmetry" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -41,26 +40,23 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
-                android:textColor="@color/iconColor"
-                tools:text="@string/user_name_tools_text"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:id="@+id/logged_in_user_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/user_name_tools_text" />
 
             <TextView
                 android:id="@+id/dashboard_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat_bold"
                 android:text="@string/dashboard"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/iconColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logged_in_user_name" />
 
@@ -69,36 +65,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="16dp"
+                android:alpha="0.5"
                 android:background="@drawable/dashboard_container_bg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dashboard_label" />
 
             <TextView
-                app:bindCustomerDataLabelListener="@{navController}"
                 android:id="@+id/customers_text_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/dashboard_container_bg"
-                android:fontFamily="@font/montserrat"
                 android:padding="16dp"
                 android:text="@string/customer_data_label"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@color/iconColor"
+                app:bindCustomerDataLabelListener="@{navController}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dashboard_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            app:bindDashboardFabListener="@{navController}"
-            android:id="@+id/fab_add_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_add_customer"
-            app:tint="@color/colorOnSecondary" />
+            app:bindDashboardFabListener="@{navController}"
+            app:srcCompat="@drawable/ic_add_customer" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

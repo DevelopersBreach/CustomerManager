@@ -18,7 +18,6 @@
         android:paddingEnd="20dp"
         android:paddingBottom="36dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-        android:textColor="@color/iconColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +30,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="20dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-        android:textColor="@color/iconColor"
         app:layout_constraintBottom_toTopOf="@id/search_dialog_customer_status_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_dialog_customer_name_text_view"
-        app:tint="#000000"
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_completed" />
 

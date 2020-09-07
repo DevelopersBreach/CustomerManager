@@ -37,13 +37,12 @@
                 android:id="@+id/toolbar_fragment_editor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:menu="@menu/menu_main"
                 app:bindEditorFragmentNavigationIcon="@{activity}"
                 app:bindEditorFragmentTitle="@{toolbarTitleArgs}"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:menu="@menu/menu_main"
                 app:navigationIcon="@drawable/ic_up_button"
                 app:titleTextAppearance="@style/TextAppearance.Customer.Toolbar.Main"
-                app:titleTextColor="@color/iconColor"
                 tools:ignore="RtlSymmetry"
                 tools:title="@string/editor_fragment_label" />
 
@@ -114,15 +113,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:paddingBottom="8dp"
-                app:boxStrokeColor="@color/textInputOutlineColor"
                 app:hintTextAppearance="@style/TextAppearance.Customer.TextInputLayout.HintText"
-                app:hintTextColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toTopOf="@id/customer_name_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bill_number_input"
-                app:startIconDrawable="@drawable/ic_item_type"
-                app:startIconTint="@color/iconColor">
+                app:startIconDrawable="@drawable/ic_item_type">
 
                 <AutoCompleteTextView
                     android:id="@+id/item_type_drop_down"
@@ -215,7 +211,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/customer_contact_input"
-                app:tint="@color/iconColor"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -223,8 +218,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/iconColor"
                 android:textSize="20sp"
                 app:bindCurrentDateTextView="@{viewModel}"
                 app:layout_constraintBottom_toBottomOf="@id/date_image_view"
@@ -237,8 +230,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/iconColor"
                 android:textSize="20sp"
                 app:bindDeliveryDateTextView="@{viewModel}"
                 app:layout_constraintBottom_toBottomOf="@id/date_image_view"
@@ -251,7 +242,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:backgroundTint="@color/iconColor"
                 android:text="@string/validate_fields_button"
                 android:visibility="visible"
                 app:bindBillNumberEditText="@{billNumberEditText}"
@@ -264,11 +254,10 @@
 
             <Button
                 android:id="@+id/submit_button"
-                bindDeliveryDateTextSubmission="@{dateDeliveryTextView}"
+                app:bindDeliveryDateTextSubmission="@{dateDeliveryTextView}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:backgroundTint="@color/iconColor"
                 android:text="@string/submit_text_button"
                 android:visibility="gone"
                 app:bindBillNumberEditSubmission="@{billNumberEditText}"

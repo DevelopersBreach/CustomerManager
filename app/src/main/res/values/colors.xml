@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorOnSecondary">#ffffff</color>
+<!--    <color name="colorOnSecondary">#ffffff</color>-->
 
-    <color name="primaryColor">#ffcdd2</color>
-    <color name="primaryLightColor">#ffffff</color>
-    <color name="primaryDarkColor">#cb9ca1</color>
-    <color name="secondaryColor">#212121</color>
-    <color name="secondaryLightColor">#484848</color>
-    <color name="secondaryDarkColor">#000000</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#ffffff</color>
+<!--    <color name="primaryColor">#ffcdd2</color>-->
+<!--    <color name="primaryLightColor">#ffffff</color>-->
+<!--    <color name="primaryDarkColor">#cb9ca1</color>-->
+<!--    <color name="secondaryColor">#212121</color>-->
+<!--    <color name="secondaryLightColor">#484848</color>-->
+<!--    <color name="secondaryDarkColor">#000000</color>-->
+<!--    <color name="primaryTextColor">#000000</color>-->
+<!--    <color name="secondaryTextColor">#ffffff</color>-->
 
-    <color name="iconColor">#D75C3C3F</color>
-    <color name="textInputOutlineColor">#FBB8AC</color>
-    <color name="colorBackground">#FFDED9</color>
-    <color name="colorDetailBackground">#F8E0DD</color>
+<!--    <color name="iconColor">#D75C3C3F</color>-->
+<!--    <color name="textInputOutlineColor">#FBB8AC</color>-->
+<!--    <color name="colorBackground">#FFDED9</color>-->
+<!--    <color name="colorDetailBackground">#F8E0DD</color>-->
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#c96668</color>
+    <color name="colorOnPrimary">#FAFAFA</color>
+
+    <color name="colorSecondary">#455a64</color>
+    <color name="colorOnSecondary">#fafafa</color>
+    <color name="colorSecondaryVariant">#1c313a</color>
+
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+
+    <color name="colorBackground">#e57373</color>
+    <color name="colorOnBackground">#000000</color>
+
+    <color name="colorError">#CF6679</color>
+    <color name="colorOnError">#000000</color>
+
+    <color name="colorProgressTint">#DD8888</color>
+    <color name="colorHint">#DDC37C7C</color>
+    <color name="colorCardSurface">#556167</color>
+
 </resources>

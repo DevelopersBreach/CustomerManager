@@ -3,28 +3,47 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="elevationOverlayEnabled">false</item>
 
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#fafafa</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#ffffff</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSecondaryVariant">#fafafa</item>
+        <item name="colorSurface">#ffffff</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:colorBackground">#ffffff</item>
+        <item name="colorOnBackground">#000000</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="elevationOverlayEnabled">true</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
+
+<!--    <style name="EditorFragment">-->
+<!--        <item name="colorPrimary">#000000</item>-->
+<!--        <item name="colorPrimaryDark">#212121</item>-->
+<!--        <item name="colorOnPrimary">#ffffff</item>-->
+<!--        <item name="android:background">#FFFFFF</item>-->
+<!--    </style>-->
+
+<!--    <style name="ThemeOverlay.EditorFragment" parent="Theme.MaterialComponents.Light.NoActionBar">-->
+<!--        <item name="colorPrimary">#000000</item>-->
+<!--        <item name="colorPrimaryDark">#212121</item>-->
+<!--        <item name="colorOnPrimary">#ffffff</item>-->
+<!--    </style>-->
 
     <style name="Widget.Customer.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">
             @style/TextAppearance.Customer.TextInputLayout.HintText
         </item>
-        <item name="hintTextColor">@color/primaryTextColor</item>
+<!--        <item name="hintTextColor">@color/primaryTextColor</item>-->
         <item name="android:paddingBottom">8dp</item>
-        <item name="startIconTint">@color/iconColor</item>
-        <item name="boxStrokeColor">@color/textInputOutlineColor</item>
+<!--        <item name="startIconTint">@color/iconColor</item>-->
+<!--        <item name="boxStrokeColor">@color/textInputOutlineColor</item>-->
     </style>
 
     <style name="TextAppearance.Customer.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
@@ -33,7 +52,7 @@
 
     <style name="Widget.Customer.TextInputEditText" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/iconColor</item>
+<!--        <item name="android:textColor">@color/iconColor</item>-->
     </style>
 
     <style name="Widget.Customer.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
@@ -41,7 +60,7 @@
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/iconColor</item>
+<!--        <item name="android:textColor">@color/iconColor</item>-->
     </style>
 
     <style name="TextAppearance.Customer.Toolbar.Main" parent="TextAppearance.MaterialComponents.Headline5">
@@ -55,7 +74,7 @@
         <item name="android:inputType">text</item>
     </style>
 
-    <style name="TextAppearance.Customer.Detail.Tag" parent="TextAppearance.MaterialComponents.Headline4">
+    <style name="TextAppearance.Customer.Detail.Tag" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">20dp</item>
@@ -63,16 +82,16 @@
         <item name="android:alpha">0.7</item>
         <item name="android:maxLines">1</item>
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/iconColor</item>
+<!--        <item name="android:textColor">@color/iconColor</item>-->
     </style>
 
-    <style name="TextAppearance.Customer.Detail.Value" parent="TextAppearance.MaterialComponents.Headline4">
+    <style name="TextAppearance.Customer.Detail.Value" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:maxLines">1</item>
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/iconColor</item>
+<!--        <item name="android:textColor">@color/iconColor</item>-->
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -81,7 +100,7 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
-        <item name="android:background">@color/textInputOutlineColor</item>
+<!--        <item name="android:background">@color/textInputOutlineColor</item>-->
     </style>
 
     <style name="Widget.Customer.Button.Icon" parent="Widget.MaterialComponents.Button.Icon">
@@ -98,18 +117,18 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
-
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
-
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#000000</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#fafafa</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#ffffff</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSecondaryVariant">#fafafa</item>
+        <item name="colorSurface">#ffffff</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:colorBackground">#ffffff</item>
         <item name="colorOnBackground">#000000</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
     </style>
 
 </resources>

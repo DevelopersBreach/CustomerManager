@@ -7,6 +7,7 @@
     <string name="editor_fragment_label">Add New Customer</string>
     <string name="dashboard">Dashboard</string>
     <string name="existing_customer_toolbar_title">Existing Customer</string>
+    <string name="welcome_login_message">Welcome, %1$s!</string>
 
     <!--  Text fields hints  -->
     <string name="hint_customer_bill_text">Bill Number</string>
@@ -77,5 +78,9 @@
     </string>
     <string name="login">Login</string>
     <string name="user_name_tools_text">Username</string>
+
+    <string name="detail_num_items_text_label">Total items</string>
+    <string name="detail_date_started_on_label">Started On</string>
+    <string name="detail_date_expected_label">Expected</string>
 
 </resources>

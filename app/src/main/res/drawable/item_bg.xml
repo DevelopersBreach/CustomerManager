@@ -4,7 +4,7 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/textInputOutlineColor" />
+        android:color="?attr/colorOnSurface" />
 
     <size
         android:width="80dp"

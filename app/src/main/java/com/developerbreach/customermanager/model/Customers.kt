@@ -13,7 +13,7 @@ class Customers : Parcelable {
     var name: String? = null
     var email: String? = null
     var contact: String? = null
-    var status: Boolean = false
+    var status: Int = 0
     var date: String? = null
     var delivery: String? = null
 
@@ -27,7 +27,7 @@ class Customers : Parcelable {
         name: String?,
         email: String?,
         contact: String?,
-        status: Boolean?,
+        status: Int?,
         date: String?,
         delivery: String?
     ) {
@@ -49,7 +49,7 @@ class Customers : Parcelable {
         name = parcel.readString()
         email = parcel.readString()
         contact = parcel.readString()
-        status = parcel.readBoolean()
+        status = parcel.readInt()
         date = parcel.readString()
         delivery = parcel.readString()
     }
@@ -65,7 +65,7 @@ class Customers : Parcelable {
         dest.writeString(name)
         dest.writeString(email)
         dest.writeString(contact)
-        dest.writeBoolean(status)
+        dest.writeInt(status)
         dest.writeString(date)
         dest.writeString(delivery)
     }

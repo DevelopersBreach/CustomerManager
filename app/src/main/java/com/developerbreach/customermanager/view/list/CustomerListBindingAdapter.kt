@@ -18,9 +18,7 @@ import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
-import com.developerbreach.customermanager.utils.COLLECTION_PATH
-import com.developerbreach.customermanager.utils.COLLECTION_PATH_FIELD_STATUS
-import com.developerbreach.customermanager.utils.itemViewAnimation
+import com.developerbreach.customermanager.utils.*
 import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
@@ -64,7 +62,7 @@ fun ImageView.setCustomerStatusItemImageView(
     customers: Customers,
     collection: CollectionReference,
 ) {
-    if (customers.status) {
+    if (customers.status == DELIVERY_STATUS_COMPLETED) {
         this.setImageResource(R.drawable.ic_completed)
         this.setOnClickListener {
             val dialogTitle = "Mark Pending - ${customers.billNumber}"
@@ -74,8 +72,8 @@ fun ImageView.setCustomerStatusItemImageView(
                 context, customers, collection, dialogTitle, dialogMessage, dialogPositiveButton
             )
         }
-    } else {
-        this.setImageResource(R.drawable.ic_clear)
+    } else if (customers.status == DELIVERY_STATUS_PENDING) {
+        this.setImageResource(R.drawable.ic_pending)
         this.setOnClickListener {
             val dialogTitle = "Mark Completed - ${customers.billNumber}"
             val dialogMessage = "Update ${customers.itemType} as completed. Change it now ?"
@@ -113,7 +111,7 @@ private fun statusPositiveListener(
     collection: CollectionReference,
 ) {
     collection.document(customers.billNumber.toString())
-        .update(COLLECTION_PATH_FIELD_STATUS, !customers.status)
+        .update(COLLECTION_PATH_FIELD_STATUS, DELIVERY_STATUS_PENDING)
         .addOnSuccessListener {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
@@ -174,10 +172,10 @@ private fun setDialogViews(
         }
 
         with(view.findViewById<ImageView>(R.id.search_dialog_customer_status_image_view)!!) {
-            if (customer.status) {
+            if (customer.status == DELIVERY_STATUS_COMPLETED) {
                 this.setImageResource(R.drawable.ic_completed)
-            } else {
-                this.setImageResource(R.drawable.ic_clear)
+            } else if (customer.status == DELIVERY_STATUS_PENDING) {
+                this.setImageResource(R.drawable.ic_pending)
             }
         }
     }

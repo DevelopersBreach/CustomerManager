@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import com.developerbreach.customermanager.R
 import com.developerbreach.customermanager.model.Customers
+import com.developerbreach.customermanager.utils.DELIVERY_STATUS_PENDING
 import com.developerbreach.customermanager.utils.isNetworkConnected
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -85,7 +86,7 @@ fun Button.setSubmitButton(
             customerNameEditText.text.toString(),
             mailEditText.text.toString(),
             contactEditText.text.toString(),
-            false,
+            DELIVERY_STATUS_PENDING,
             currentDate.text.toString(),
             deliveryDate.text.toString()
         )

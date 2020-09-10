@@ -68,6 +68,6 @@ fun TextView.setDetailDateGivenTextView(
 fun TextView.setDetailDateDeliveryTextView(
     date: String?
 ) {
-    val formatDate = date?.dropLast(5)
+    val formatDate = date?.dropLast(3)
     this.text = formatDate
 }

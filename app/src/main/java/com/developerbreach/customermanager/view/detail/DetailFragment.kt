@@ -29,7 +29,7 @@ class DetailFragment : Fragment() {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             this.duration = 300L
-            this.containerColor = resources.getColor(R.color.colorPrimaryDark, requireContext().theme)
+            this.containerColor = resources.getColor(R.color.colorSecondary, requireContext().theme)
         }
     }
 

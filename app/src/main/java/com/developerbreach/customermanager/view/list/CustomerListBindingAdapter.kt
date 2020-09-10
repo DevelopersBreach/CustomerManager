@@ -65,39 +65,39 @@ fun ImageView.setCustomerStatusItemImageView(
     if (customers.status == DELIVERY_STATUS_COMPLETED) {
         this.setImageResource(R.drawable.ic_completed)
         this.setOnClickListener {
-            val dialogTitle = "Mark Pending - ${customers.billNumber}"
-            val dialogMessage = "Update ${customers.itemType} as pending. Change it now ?"
-            val dialogPositiveButton = context.getString(R.string.status_pending)
+            val title = "Mark Pending - ${customers.billNumber}"
+            val message = "Update ${customers.itemType} as pending. Change it now ?"
+            val positiveButton = context.getString(R.string.status_pending)
             showStatusDialog(
-                context, customers, collection, dialogTitle, dialogMessage, dialogPositiveButton
+                customers, collection, title, message, positiveButton, DELIVERY_STATUS_PENDING
             )
         }
     } else if (customers.status == DELIVERY_STATUS_PENDING) {
         this.setImageResource(R.drawable.ic_pending)
         this.setOnClickListener {
-            val dialogTitle = "Mark Completed - ${customers.billNumber}"
-            val dialogMessage = "Update ${customers.itemType} as completed. Change it now ?"
-            val dialogPositiveButton = context.getString(R.string.status_completed)
+            val title = "Mark Completed - ${customers.billNumber}"
+            val message = "Update ${customers.itemType} as completed. Change it now ?"
+            val positiveButton = context.getString(R.string.status_completed)
             showStatusDialog(
-                context, customers, collection, dialogTitle, dialogMessage, dialogPositiveButton
+                customers, collection, title, message, positiveButton, DELIVERY_STATUS_COMPLETED
             )
         }
     }
 }
 
-private fun showStatusDialog(
-    context: Context,
+private fun ImageView.showStatusDialog(
     customers: Customers,
     collection: CollectionReference,
     dialogTitle: String,
     dialogMessage: String,
     dialogPositiveButton: String,
+    deliveryStatus: Int,
 ) {
     MaterialAlertDialogBuilder(context, R.style.Widget_Customer_Dialog)
         .setTitle(dialogTitle)
         .setMessage(dialogMessage)
         .setPositiveButton(dialogPositiveButton) { _, _ ->
-            statusPositiveListener(context, customers, collection)
+            statusPositiveListener(context, customers, collection, deliveryStatus)
         }
         .setNegativeButton(context.getString(R.string.dialog_negative_button_cancel)) { dialog, _ ->
             dialog.dismiss()
@@ -109,9 +109,10 @@ private fun statusPositiveListener(
     context: Context,
     customers: Customers,
     collection: CollectionReference,
+    deliveryStatus: Int,
 ) {
-    collection.document(customers.billNumber.toString())
-        .update(COLLECTION_PATH_FIELD_STATUS, DELIVERY_STATUS_PENDING)
+    val document = collection.document(customers.billNumber.toString())
+    document.update(COLLECTION_PATH_FIELD_STATUS, deliveryStatus)
         .addOnSuccessListener {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }

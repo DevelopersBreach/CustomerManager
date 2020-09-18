@@ -82,5 +82,6 @@
     <string name="detail_num_items_text_label">Total items</string>
     <string name="detail_date_started_on_label">Started On</string>
     <string name="detail_date_expected_label">Expected</string>
+    <string name="skip">Skip</string>
 
 </resources>

@@ -7,6 +7,7 @@ import com.developerbreach.customermanager.auth.FirebaseUserLiveData
 
 class LoginViewModel : ViewModel() {
 
+    @Suppress("SENSELESS_COMPARISON")
     val authenticationState = FirebaseUserLiveData().map { user ->
         if (user != null) {
             AuthenticationState.AUTHENTICATED

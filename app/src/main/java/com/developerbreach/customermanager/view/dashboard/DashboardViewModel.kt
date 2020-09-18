@@ -8,6 +8,7 @@ import com.developerbreach.customermanager.auth.FirebaseUserLiveData
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
 
+    @Suppress("SENSELESS_COMPARISON")
     val authenticationState = FirebaseUserLiveData().map { user ->
         if (user != null) {
             AuthenticationState.AUTHENTICATED

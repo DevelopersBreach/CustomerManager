@@ -11,7 +11,7 @@ import com.firebase.ui.auth.AuthUI
 
 @BindingAdapter("bindLoginButton")
 fun Button.setLoginButton(
-    activity: Activity
+    activity: Activity,
 ) {
     this.setOnClickListener {
         activity.startActivityForResult(
